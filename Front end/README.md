@@ -1,2 +1,0 @@
-# Pixel-Pushers
-devthon competition

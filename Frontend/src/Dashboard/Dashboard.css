@@ -1,0 +1,21 @@
+
+
+*{
+    margin: 0;
+    box-sizing:border-box;
+    font-family:sans-serif;
+}
+.container {
+    
+    width:100vw;  /* Places it at an exact position */
+    top: 0;
+    left: 0;
+ /* Ensures it spans the width of the page */
+    min-height: 100vh;
+    background-color: aquamarine;
+    transition: 0.5s;
+    
+}
+.container.dark{
+    background:#222;
+}
