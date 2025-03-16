@@ -1,7 +1,64 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from models import SignupRequest, LoginRequest
+from config import user_collection
+from passlib.context import CryptContext
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello, FastAPI!"}
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Password hashing
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+@app.post("/login")
+async def login(request: LoginRequest):
+    # Check if user exists
+    user = user_collection.find_one({"username": request.username})
+    if not user:
+        return JSONResponse(status_code=400, content={"message": "User does not exist"})
+
+    # Check if password is correct
+    if not pwd_context.verify(request.password, user["password"]):
+        return JSONResponse(status_code=400, content={"message": "Incorrect password"})
+    
+    return {"message": "Login successful"}
+
+
+@app.post("/signup")
+async def signup(request: SignupRequest):
+    # Check if user already exists
+    if user_collection.find_one({"username": request.username}):
+        return JSONResponse(status_code=400, content={"message": "User already exists"})
+
+    # Hash password
+    hashed_password = pwd_context.hash(request.password)
+
+    # Insert user details into the database
+    user_collection.insert_one({"username": request.username, "password": hashed_password})
+
+    return {"message": "User registered successfully"}
+
+
+@app.get("/users")
+def get_all_users():
+    users = list(user_collection.find())
+
+    for user in users:
+        user["_id"] = str(user["_id"])
+
+    return users
+
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8078)  # Ensure the port is 9001 to match React
