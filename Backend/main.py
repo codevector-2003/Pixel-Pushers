@@ -58,7 +58,6 @@ def get_all_users():
     return users
 
 
-
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8078)  # Ensure the port is 9001 to match React
+    uvicorn.run(app, host="127.0.0.1", port=8078)
