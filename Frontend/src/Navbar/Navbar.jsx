@@ -24,6 +24,7 @@ const Navbar = ({ Theme, setTheme }) => {
                 <li onClick={() => navigate("/forum")}>Forum</li>
                 <li onClick={() => navigate("/nutrition")}>Nutrition</li>
                 <li onClick={() => navigate("/vaccination")}>Vaccination</li>
+                <li onClick={() => navigate("/Milestones")}>Milestones</li>
             </ul>
 
             <div className="search-box">

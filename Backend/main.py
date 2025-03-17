@@ -4,6 +4,8 @@ from models import SignupRequest, LoginRequest
 from config import user_collection
 from passlib.context import CryptContext
 from fastapi.responses import JSONResponse
+from dashboard import dashboard_router
+from milestones import milestones_router
 
 app = FastAPI()
 
@@ -57,6 +59,8 @@ def get_all_users():
 
     return users
 
+app.include_router(dashboard_router)
+app.include_router(milestones_router)
 
 if __name__ == "__main__":
     import uvicorn
