@@ -35,6 +35,7 @@ class PyObjectId(str):
             core_schema.str_schema(),
             serialization=core_schema.to_string_ser_schema(),
         )
+
     
 class GenderEnum(str, Enum):
     MALE = "male"
@@ -59,7 +60,7 @@ class Baby(BabyBase):
 
     class Config:
         json_encoders = {ObjectId: str}
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "name": "Emma Smith",
                 "birth_date": "2023-01-15",
