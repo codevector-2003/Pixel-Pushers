@@ -6,8 +6,17 @@ uri = "mongodb+srv://himathnimpura:himathavenge@cluster0.bjaku.mongodb.net/User_
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
-db = client["User_Details"]  # Ensure database name is correct
-user_collection = db["User"]  # Ensure collection name is correct
+db = client["smartbaby_db"]  # Ensure database name is correct
+
+# Collections
+user_collection = db["User"]  
+baby_collection = db["babies"]
+milestone_collection = db["milestones"]
+diet_collection = db["diet_records"]
+vaccine_collection = db["vaccine_records"]
+illness_collection = db["illness_records"]
+growth_collection = db["growth_records"]
+doctor_chat_collection = db["doctor_chats"]
 
 # Check if connection is successful
 try:

@@ -1,0 +1,32 @@
+smartbaby_backend/
+├── app/
+│   ├── main.py
+│   ├── database.py
+│   ├── models/
+│   │   ├── baby.py
+│   │   ├── diet.py
+│   │   ├── milestone.py
+│   │   ├── user.py
+│   │   ├── vaccine.py
+│   │   ├── illness.py
+│   │   └── growth.py
+│   ├── routers/
+│   │   ├── auth.py
+│   │   ├── baby.py
+│   │   ├── diet.py
+│   │   ├── doctor.py
+│   │   ├── milestone.py
+│   │   ├── settings.py
+│   │   ├── vaccine.py
+│   │   ├── illness.py
+│   │   └── growth.py
+│   └── schemas/
+│       ├── baby.py
+│       ├── diet.py
+│       ├── milestone.py
+│       ├── user.py
+│       ├── vaccine.py
+│       ├── illness.py
+│       └── growth.py
+├── requirements.txt
+└── .venv

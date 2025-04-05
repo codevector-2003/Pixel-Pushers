@@ -1,11 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from models import SignupRequest, LoginRequest
 from config import user_collection
 from passlib.context import CryptContext
 from fastapi.responses import JSONResponse
-from dashboard import dashboard_router
-from milestones import milestones_router
+from routers import auth
 
 app = FastAPI()
 
@@ -17,6 +15,18 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+app.include_router(auth.router)
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8078)
+
+
+
+""""
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -57,11 +67,7 @@ def get_all_users():
     for user in users:
         user["_id"] = str(user["_id"])
 
-    return users
+    return users  
 
-app.include_router(dashboard_router)
-app.include_router(milestones_router)
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8078)
+"""
