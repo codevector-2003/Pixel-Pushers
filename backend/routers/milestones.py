@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException  
 from typing import List
 from bson import ObjectId
+from datetime import datetime , date
 
 from schemas.milestones import Milestone, MilestoneCreate
 from config import milestone_collection, baby_collection
@@ -25,12 +26,18 @@ async def create_milestone(
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
+    # Convert 'date' to datetime if it's not already
     milestone_dict = milestone.dict()
     milestone_dict["baby_id"] = baby_id
     
+    # Ensure the date is a datetime object
+    if isinstance(milestone_dict.get("date"), date):
+        milestone_dict["date"] = datetime.combine(milestone_dict["date"], datetime.min.time())
+    
     result = milestone_collection.insert_one(milestone_dict)
     created_milestone = milestone_collection.find_one({"_id": result.inserted_id})
-    return created_milestone
+    return Milestone(**created_milestone)
+
 
 @router.get("/babies/{baby_id}/milestones/", response_model=List[Milestone])
 async def read_milestones(
@@ -46,7 +53,8 @@ async def read_milestones(
         skip=skip,
         limit=limit
     ))
-    return milestones
+    return [Milestone(**m) for m in milestones]
+
 
 @router.get("/babies/{baby_id}/milestones/{milestone_id}", response_model=Milestone)
 async def read_milestone(
@@ -62,7 +70,7 @@ async def read_milestone(
     })
     if milestone is None:
         raise HTTPException(status_code=404, detail="Milestone not found")
-    return milestone
+    return Milestone(**milestone)
 
 @router.put("/babies/{baby_id}/milestones/{milestone_id}", response_model=Milestone)
 async def update_milestone(
@@ -79,7 +87,7 @@ async def update_milestone(
         {"$set": update_data}
     )
     updated_milestone = milestone_collection.find_one({"_id": ObjectId(milestone_id)})
-    return updated_milestone
+    return Milestone(**updated_milestone)
 
 @router.delete("/babies/{baby_id}/milestones/{milestone_id}")
 async def delete_milestone(
