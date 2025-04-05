@@ -38,8 +38,8 @@ class PyObjectId(str):
 
 class GrowthRecordBase(BaseModel):
     date: date
-    weight: float = None
-    height: float = None
+    weight: float = 0
+    height: float = 0
     notes: Optional[str] = None
 
 class GrowthRecordCreate(GrowthRecordBase):

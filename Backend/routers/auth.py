@@ -31,6 +31,7 @@ async def signup(user: UserCreate):
     
     result = user_collection.insert_one(user_dict)
     created_user = user_collection.find_one({"_id": result.inserted_id})
+    created_user["_id"] = str(created_user["_id"])
     return created_user
 
 @router.post("/token", response_model=Token)

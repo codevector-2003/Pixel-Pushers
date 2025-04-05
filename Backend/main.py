@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from config import user_collection
-from passlib.context import CryptContext
-from fastapi.responses import JSONResponse
 from routers import auth , milestones , baby , growth , diet, vaccine, illness
 
 app = FastAPI()
@@ -15,7 +13,6 @@ app.add_middleware(
     allow_methods=["*"],                       
     allow_headers=["*"],
 )
-
 
 app.include_router(auth.router)
 app.include_router(milestones.router)
