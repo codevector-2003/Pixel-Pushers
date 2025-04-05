@@ -11,6 +11,7 @@ from security import (
     ACCESS_TOKEN_EXPIRE_MINUTES
 )
 
+
 router = APIRouter(tags=["authentication"])
 
 @router.post("/signup", response_model=User)

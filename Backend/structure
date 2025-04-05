@@ -10,17 +10,17 @@ smartbaby_backend/
 │   │   ├── vaccine.py
 │   │   ├── illness.py
 │   │   └── growth.py
-│   ├── routers/
-│   │   ├── auth.py
-│   │   ├── baby.py
-│   │   ├── diet.py
-│   │   ├── doctor.py
-│   │   ├── milestone.py
-│   │   ├── settings.py
-│   │   ├── vaccine.py
-│   │   ├── illness.py
-│   │   └── growth.py
-│   └── utils/
-│       └── security.py
+│   └── routers/
+│       ├── auth.py
+│       ├── baby.py
+│       ├── diet.py
+│       ├── doctor.py
+│       ├── milestone.py
+│       ├── settings.py
+│       ├── vaccine.py
+│       ├── illness.py
+│       └── growth.py
+│   
+├── security.py
 ├── requirements.txt
 └── .env
