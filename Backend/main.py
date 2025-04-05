@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from config import user_collection
 from passlib.context import CryptContext
 from fastapi.responses import JSONResponse
-from routers import auth , milestones , baby
+from routers import auth , milestones , baby, diet
 
 app = FastAPI()
 
@@ -20,6 +20,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(milestones.router)
 app.include_router(baby.router)
+app.include_router(diet.router)
 
 
 if __name__ == "__main__":
