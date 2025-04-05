@@ -2,8 +2,8 @@ from pydantic import BaseModel, Field,  GetCoreSchemaHandler
 from typing import  Any, Dict, Optional, Union
 from bson import ObjectId
 from pydantic_core import core_schema
-from enum import Enum
 from datetime import date
+
 
 
 class PyObjectId(str):
@@ -35,37 +35,28 @@ class PyObjectId(str):
             serialization=core_schema.to_string_ser_schema(),
         )
 
-    
-class GenderEnum(str, Enum):
-    MALE = "male"
-    FEMALE = "female"
-    OTHER = "other"
 
-class BabyBase(BaseModel):
-    name: str
-    birth_date: date
-    gender: Optional[GenderEnum] = None
-    birth_weight: Optional[float] = None
-    birth_height: Optional[float] = None
+class GrowthRecordBase(BaseModel):
+    date: date
+    weight: float = None
+    height: float = None
+    notes: Optional[str] = None
 
-
-class BabyCreate(BabyBase):
+class GrowthRecordCreate(GrowthRecordBase):
     pass
 
-
-class Baby(BabyBase):
-    id: str = Field(default_factory=PyObjectId, alias="_id")
-    parent_id: str
-
+class GrowthRecord(GrowthRecordBase):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    baby_id: str
+    
     class Config:
         json_encoders = {ObjectId: str}
-        json_schema_extra = {
+        josn_schema_extra = {
             "example": {
-                "name": "Emma Smith",
-                "birth_date": "2023-01-15",
-                "gender": "female",
-                "birth_weight": 3.2,
-                "birth_height": 50.5,
-                "parent_id": "507f1f77bcf86cd799439011"
+                "date": "2023-04-01",
+                "weight": 6.5,
+                "height": 62.0,
+                "notes": "Healthy growth",
+                "baby_id": "507f1f77bcf86cd799439011"
             }
         }
