@@ -51,6 +51,7 @@ class User(UserBase):
     class Config:
         populate_by_name = True
         json_encoders = {ObjectId: str}
+        allow_population_by_field_name = True 
 
 class UserInDB(User):
     hashed_password: str

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from bson import ObjectId
+from datetime import datetime, date
 
 from schemas.baby import Baby, BabyCreate
 from config import baby_collection
@@ -23,6 +24,9 @@ async def create_baby(
     current_user: dict = Depends(get_current_active_user)
 ):
     baby_dict = baby.dict()
+    if isinstance(baby_dict.get("birth_date"), date):
+        baby_dict["birth_date"] = datetime.combine(baby_dict["birth_date"], datetime.min.time())
+
     baby_dict["parent_id"] = str(current_user["_id"])
     
     result = baby_collection.insert_one(baby_dict)

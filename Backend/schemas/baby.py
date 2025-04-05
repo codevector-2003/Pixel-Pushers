@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, GetJsonSchemaHandler , GetCoreSchemaHandler
+from pydantic import BaseModel, Field, GetJsonSchemaHandler , GetCoreSchemaHandler, root_validator
 from pydantic.json_schema import JsonSchemaValue
 from typing import  Any, Dict, Optional, Union
 from bson import ObjectId
@@ -57,6 +57,12 @@ class BabyCreate(BabyBase):
 class Baby(BabyBase):
     id: str = Field(default_factory=PyObjectId, alias="_id")
     parent_id: str
+
+    @root_validator(pre=True)
+    def convert_objectid_to_string(cls, values):
+        if "_id" in values and isinstance(values["_id"], ObjectId):
+            values["_id"] = str(values["_id"])  # Convert ObjectId to string
+        return values
 
     class Config:
         json_encoders = {ObjectId: str}
