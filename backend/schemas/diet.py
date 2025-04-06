@@ -48,7 +48,6 @@ class DietRecordCreate(DietRecordBase):
 class DietRecord(DietRecordBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     baby_id: str
-    
 
     model_config = ConfigDict(
         json_encoders={ObjectId: str},
@@ -67,16 +66,15 @@ class allergyRecord(allergy):
     baby_id: str
 
     model_config = ConfigDict(
-        json_encoders={ObjectId: str},
-        populate_by_name=True,  
-    )
-    class Config:
-        schema_extra = {
-            "example": {
-                "name": "Peanuts",
-                "baby_id": "507f1f77bcf86cd799439011"
-            }
+    json_encoders={ObjectId: str},
+    populate_by_name=True,
+    json_schema_extra={
+        "example": {
+            "name": "Peanuts",
+            "baby_id": "507f1f77bcf86cd799439011"
         }
+    }
+)
 
 class food(BaseModel):
     name: str
@@ -89,13 +87,10 @@ class foodRecord(food):
     baby_id: str
 
     model_config = ConfigDict(
-        json_encoders={ObjectId: str},
-        populate_by_name=True,  
-    )
-    class Config:
-        schema_extra = {
+        json_schema_extra={
             "example": {
                 "food": "Peanuts",
                 "baby_id": "507f1f77bcf86cd799439011"
             }
         }
+    )

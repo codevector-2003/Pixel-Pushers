@@ -10,6 +10,10 @@ from routers import (
     vaccine_router,
     illness_router,
     growth_router,
+    allergy_router,
+    food_router,
+    recommendation_router,
+    
 )
 
 
@@ -34,6 +38,9 @@ app.include_router(settings_router)
 app.include_router(vaccine_router)
 app.include_router(illness_router)
 app.include_router(growth_router)
+app.include_router(allergy_router)
+app.include_router(food_router)
+app.include_router(recommendation_router)
 
 
 if __name__ == "__main__":

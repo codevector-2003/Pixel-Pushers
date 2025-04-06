@@ -15,6 +15,9 @@ from .illness import router as illness_router
 from .growth import router as growth_router
 from .docters import router as doctor_router
 from .settings import router as settings_router
+from .allergy import router as allergy_router
+from .food import router as food_router
+from .recommendation import router as recommendation_router
 
 __all__ = [
     "auth_router",
@@ -25,5 +28,8 @@ __all__ = [
     "illness_router",
     "growth_router",
     "doctor_router",
-    "settings_router"
+    "settings_router",
+    "allergy_router",
+    "food_router",
+    "recommendation_router"
 ]
