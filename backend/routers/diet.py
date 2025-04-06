@@ -1,9 +1,10 @@
 from typing import List
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException
-from schemas.diet import DietRecord, DietRecordCreate
-from config import diet_collection, baby_collection
+from schemas.diet import DietRecord, DietRecordCreate 
+from config import diet_collection, baby_collection , allergy_collection , food_collection
 from security import get_current_active_user
+from datetime import datetime  
 
 router = APIRouter(tags=["diet"])
 def verify_baby_ownership(baby_id: str, user_id: str):
@@ -15,7 +16,7 @@ def verify_baby_ownership(baby_id: str, user_id: str):
         raise HTTPException(status_code=404, detail="Baby not found or access denied")
     return True
 
-@router.post("/babies/{baby_id}/diet/", response_model=DietRecord)
+@router.post("/babies/{baby_id}/diet/")
 async def create_diet_record(
     baby_id: str, 
     diet_record: DietRecordCreate, 
@@ -25,10 +26,14 @@ async def create_diet_record(
     
     diet_dict = diet_record.dict()
     diet_dict["baby_id"] = baby_id
+
+    diet_dict["date"] = datetime.combine(diet_dict["date"], datetime.min.time())
+    diet_dict["baby_id"] = baby_id
     
     result = diet_collection.insert_one(diet_dict)
     created_diet = diet_collection.find_one({"_id": result.inserted_id})
-    return created_diet
+    created_diet["_id"] = str(created_diet["_id"])
+    return  created_diet
 
 @router.get("/babies/{baby_id}/diet/", response_model=List[DietRecord])
 async def read_diet_records(
@@ -72,6 +77,9 @@ async def update_diet_record(
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
     update_data = diet_update.dict(exclude_unset=True)
+    if "date" in update_data:
+        update_data["date"] = datetime.combine(update_data["date"], datetime.min.time())
+
     diet_collection.update_one(
         {"_id": ObjectId(diet_id), "baby_id": baby_id},
         {"$set": update_data}

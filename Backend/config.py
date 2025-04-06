@@ -17,6 +17,8 @@ vaccine_collection = db["vaccine_records"]
 illness_collection = db["illness_records"]
 growth_collection = db["growth_records"]
 doctor_chat_collection = db["doctor_chats"]
+allergy_collection = db["allergies"]
+food_collection = db["food"]
 
 # Check if connection is successful
 try:

@@ -4,8 +4,10 @@ from bson import ObjectId
 from datetime import datetime, date
 
 from schemas.baby import Baby, BabyCreate
-from config import baby_collection
+from config import baby_collection , vaccine_collection
 from security import get_current_active_user
+from utils.baby_vaccination_db import STANDARD_VACCINES
+from schemas.vaccine import Vaccine
 
 router = APIRouter(tags=["babies"])
 
@@ -31,7 +33,31 @@ async def create_baby(
     
     result = baby_collection.insert_one(baby_dict)
     created_baby = baby_collection.find_one({"_id": result.inserted_id})
+
+    await initialize_standard_vaccines(str(result.inserted_id), current_user)
     return created_baby
+
+@router.post("/babies/{baby_id}/vaccines/initialize", response_model=List[Vaccine])
+async def initialize_standard_vaccines(
+    baby_id: str,
+    current_user: dict = Depends(get_current_active_user)
+):
+    verify_baby_ownership(baby_id, str(current_user["_id"]))
+    
+    # First delete any existing vaccines for this baby
+    vaccine_collection.delete_many({"baby_id": baby_id})
+    
+    # Insert all standard vaccines
+    vaccines = []
+    for vaccine_data in STANDARD_VACCINES:
+        vaccine_data["baby_id"] = baby_id
+        vaccine_data["given"] = False
+        result = vaccine_collection.insert_one(vaccine_data)
+        vaccine = vaccine_collection.find_one({"_id": result.inserted_id})
+        vaccines.append(vaccine)
+    
+    return vaccines
+
 
 @router.get("/babies/", response_model=List[Baby])
 async def read_babies(

@@ -3,7 +3,7 @@ from typing import List
 from bson import ObjectId
 from datetime import datetime , date
 
-from schemas.milestones import Milestone, MilestoneCreate
+from schemas.milestones import Milestone, MilestoneCreate , MilestoneCategory
 from config import milestone_collection, baby_collection
 from security import get_current_active_user
 
@@ -17,7 +17,7 @@ def verify_baby_ownership(baby_id: str, user_id: str):
     if not baby:
         raise HTTPException(status_code=404, detail="Baby not found or access denied")
     return True
-
+0
 @router.post("/babies/{baby_id}/milestones/", response_model=Milestone)
 async def create_milestone(
     baby_id: str, 
@@ -54,23 +54,57 @@ async def read_milestones(
         limit=limit
     ))
     return [Milestone(**m) for m in milestones]
-
-
-@router.get("/babies/{baby_id}/milestones/{milestone_id}", response_model=Milestone)
-async def read_milestone(
-    baby_id: str, 
-    milestone_id: str, 
+@router.get("/babies/{baby_id}/milestones/emotional", response_model=List[Milestone])
+async def read_emotional_milestones(
+    baby_id: str,
     current_user: dict = Depends(get_current_active_user)
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
-    milestone = milestone_collection.find_one({
-        "_id": ObjectId(milestone_id),
-        "baby_id": baby_id
-    })
-    if milestone is None:
-        raise HTTPException(status_code=404, detail="Milestone not found")
-    return Milestone(**milestone)
+    milestones = list(milestone_collection.find({
+        "baby_id": baby_id,
+        "category": MilestoneCategory.EMOTIONAL.value
+    }))
+    return [Milestone(**m) for m in milestones]
+
+@router.get("/babies/{baby_id}/milestones/cognitive", response_model=List[Milestone])
+async def read_cognitive_milestones(
+    baby_id: str,
+    current_user: dict = Depends(get_current_active_user)
+):
+    verify_baby_ownership(baby_id, str(current_user["_id"]))
+    
+    milestones = list(milestone_collection.find({
+        "baby_id": baby_id,
+        "category": MilestoneCategory.COGNITIVE.value
+    }))
+    return [Milestone(**m) for m in milestones]
+
+@router.get("/babies/{baby_id}/milestones/movement", response_model=List[Milestone])
+async def read_movement_milestones(
+    baby_id: str,
+    current_user: dict = Depends(get_current_active_user)
+):
+    verify_baby_ownership(baby_id, str(current_user["_id"]))
+    
+    milestones = list(milestone_collection.find({
+        "baby_id": baby_id,
+        "category": MilestoneCategory.MOVEMENT.value
+    }))
+    return [Milestone(**m) for m in milestones]
+
+@router.get("/babies/{baby_id}/milestones/language", response_model=List[Milestone])
+async def read_language_milestones(
+    baby_id: str,
+    current_user: dict = Depends(get_current_active_user)
+):
+    verify_baby_ownership(baby_id, str(current_user["_id"]))
+    
+    milestones = list(milestone_collection.find({
+        "baby_id": baby_id,
+        "category": MilestoneCategory.LANGUAGE.value
+    }))
+    return [Milestone(**m) for m in milestones]
 
 @router.put("/babies/{baby_id}/milestones/{milestone_id}", response_model=Milestone)
 async def update_milestone(
@@ -104,3 +138,4 @@ async def delete_milestone(
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Milestone not found")
     return {"message": "Milestone deleted successfully"}
+

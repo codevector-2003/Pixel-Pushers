@@ -5,9 +5,9 @@ smartbaby_backend/
 │   ├── schemas/
 │   │   ├── baby.py
 │   │   ├── diet.py
-│   │   ├── mi
-│   │   ├── vaccinelestone.py
-│   │   ├── user.py.py
+│   │   ├── milestone.py
+│   │   ├── vaccinepy
+│   │   ├── user.py
 │   │   ├── illness.py
 │   │   └── growth.py
 │   └── routers/

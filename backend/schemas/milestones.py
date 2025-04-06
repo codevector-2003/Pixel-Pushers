@@ -1,9 +1,10 @@
 from pydantic import BaseModel, Field, GetJsonSchemaHandler , GetCoreSchemaHandler, root_validator
 from pydantic.json_schema import JsonSchemaValue
-from typing import  Any, Dict, Optional, Union
+from typing import  Any, Dict, Optional, Union , Literal
 from datetime import date, datetime
 from bson import ObjectId
 from pydantic_core import core_schema
+from enum import Enum
 
 class PyObjectId(str):
     @classmethod
@@ -35,19 +36,25 @@ class PyObjectId(str):
         )
 
 
+class MilestoneCategory(str, Enum):
+    EMOTIONAL = "Emotional"
+    COGNITIVE = "Cognitive"
+    MOVEMENT = "Movement"
+    LANGUAGE = "Language"
+
 
 class MilestoneBase(BaseModel):
     name: str
     date: date
-    category: str #Emotional, Cognitive, Movement, Language
-    notes:Optional[str] =None
+    category: MilestoneCategory
+    notes: Optional[str] = None
 
 class MilestoneCreate(MilestoneBase):
     pass
 
 class Milestone(MilestoneBase):
     id: PyObjectId = Field(default_factory=lambda: str(ObjectId()), alias="_id")
-    baby_id:str
+    baby_id: str
 
     @root_validator(pre=True)
     def convert_date_to_datetime(cls, values):

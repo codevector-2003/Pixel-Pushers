@@ -2,7 +2,8 @@ from pydantic import BaseModel, Field , GetJsonSchemaHandler , GetCoreSchemaHand
 from typing import Optional , Any, Dict
 from datetime import date
 from bson import ObjectId
-from pydantic_core import core_schema
+from pydantic_core import core_schema 
+from pydantic import ConfigDict
 
 class PyObjectId(str):
     @classmethod
@@ -32,6 +33,7 @@ class PyObjectId(str):
             core_schema.str_schema(),
             serialization=core_schema.to_string_ser_schema(),
         )
+    
 class DietRecordBase(BaseModel):
     date: date
     food_name: str
@@ -47,16 +49,53 @@ class DietRecord(DietRecordBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     baby_id: str
     
+
+    model_config = ConfigDict(
+        json_encoders={ObjectId: str},
+        populate_by_name=True,  
+    )
+
+
+class allergy(BaseModel):
+    name: str
+
+class allergyCreate(allergy):
+    pass   
+
+class allergyRecord(allergy):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    baby_id: str
+
+    model_config = ConfigDict(
+        json_encoders={ObjectId: str},
+        populate_by_name=True,  
+    )
     class Config:
-        json_encoders = {ObjectId: str}
-        json_schema_extra = {
+        schema_extra = {
             "example": {
-                "date": "2023-04-10",
-                "food_name": "Banana puree",
-                "amount": 50.0,
-                "calories": 45.0,
-                "nutrients": "Potassium, Vitamin C",
-                "notes": "Baby liked it very much",
+                "name": "Peanuts",
+                "baby_id": "507f1f77bcf86cd799439011"
+            }
+        }
+
+class food(BaseModel):
+    name: str
+
+class foodCreate(food):
+    pass   
+
+class foodRecord(food):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    baby_id: str
+
+    model_config = ConfigDict(
+        json_encoders={ObjectId: str},
+        populate_by_name=True,  
+    )
+    class Config:
+        schema_extra = {
+            "example": {
+                "food": "Peanuts",
                 "baby_id": "507f1f77bcf86cd799439011"
             }
         }

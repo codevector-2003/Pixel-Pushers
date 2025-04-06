@@ -34,27 +34,31 @@ class PyObjectId(str):
             serialization=core_schema.to_string_ser_schema(),
         )
 
-class VaccineRecordBase(BaseModel):
+class VaccineBase(BaseModel):
     name: str
-    date: date
-    next_due: Optional[date] = None
-    notes: Optional[str] = None
+    standard_date: str  # e.g., "At Birth", "2 months", "6 months" etc.
+    disease_protected: str
+    notes: str
+    given: bool = False
+    given_date: Optional[date] = None
 
-class VaccineRecordCreate(VaccineRecordBase):
+class VaccineCreate(VaccineBase):
     pass
 
-class VaccineRecord(VaccineRecordBase):
+class Vaccine(VaccineBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     baby_id: str
     
     class Config:
-        json_encoders = {ObjectId: str}
-        json_schema_extra = {
+        json_encoders = {PyObjectId: str}
+        schema_extra = {
             "example": {
-                "name": "Hepatitis B",
-                "date": "2023-01-20",
-                "next_due": "2023-02-20",
-                "notes": "No side effects observed",
+                "name": "BCG",
+                "standard_date": "At Birth",
+                "disease_protected": "Tuberculosis",
+                "notes": "Usually given on the upper arm. Leaves a small scar.",
+                "given": True,
+                "given_date": "2023-01-15",
                 "baby_id": "507f1f77bcf86cd799439011"
             }
         }
