@@ -10,14 +10,29 @@ import { useParams } from "react-router-dom";
 
 const Vaccine = () => {
   const [vaccines, setVaccines] = useState([]);
-  const { babyId } = useParams(); 
-  
+  const baby_id = "67f3c3b572098f837bef3114";
+
   const token = localStorage.getItem("token");
         if (!token) {
           console.error("Access Token not found. Please try again.");
           return;
         }
 
+  const fetchVaccines = async () => {
+    try {
+      
+      const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/vaccines/`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      setVaccines(response.data);
+    } catch (err) {
+      console.error("Error fetching vaccines:", err);
+    }
+  };
+  
   useEffect(() => {
     const fetchVaccines = async () => {
       try {
@@ -35,7 +50,7 @@ const Vaccine = () => {
     };
 
     fetchVaccines();
-  }, [babyId]);
+  }, [baby_id]);
 
   const handleCheckboxChange = async (vaccineId, currentStatus) => {
     if (currentStatus) return; // Already given, do nothing
@@ -44,7 +59,7 @@ const Vaccine = () => {
 
     try {
       const response = await axios.put(
-        `/babies/${babyId}/vaccines/${vaccineId}/mark?given_date=${today}`,
+        `/babies/${baby_id}/vaccines/${vaccineId}/mark?given_date=${today}`,
         {},
         {
           headers: {

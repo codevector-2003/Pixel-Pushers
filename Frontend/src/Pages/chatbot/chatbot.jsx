@@ -9,33 +9,58 @@ import axios from "axios";
 const Chatbot = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         const fetchMessages = async () => {
-            // Mocked data for now
-            const response = [
-                { sender: "doc", text: "Hello, how can I help you today?" },
-                { sender: "user", text: "My baby has a fever." },
-                { sender: "doc", text: "How high is the temperature?" }
-            ];
-            setMessages(response);
-
-            // To use real backend, uncomment below and replace with your endpoint
-            // const result = await axios.get("https://your-backend.com/api/messages");
-            // setMessages(result.data);
+            try {
+                const response = await axios.get("http://127.0.0.1:8078/doctor/chat/", {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+                setMessages(response.data);
+            } catch (error) {
+                console.error("Error fetching messages:", error);
+                setMessages([]);
+            }
         };
         fetchMessages();
-    }, []);
+    }, [token]);
 
     const handleSend = async () => {
         if (!input.trim()) return;
-        const newMessage = { text: input, sender: "user" };
-        setMessages([...messages, newMessage]);
+        
+        const userMessage = { text: input, sender: "user" };
+        setMessages(prev => [...prev, userMessage]);
         setInput("");
 
-        // Optionally send to backend
-        // await axios.post("https://your-backend.com/api/messages", newMessage);
+        try {
+            const response = await axios.post(
+                "http://127.0.0.1:8078/doctor/chat/", 
+                { text: input }, 
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+
+
+            const doctorMessage = { 
+                text: response.data.doctor_reply, 
+                sender: "doctor" 
+            };
+            setMessages(prev => [...prev, doctorMessage]);
+            
+        } catch (error) {
+            console.error("Error sending message:", error);
+            
+        }
     };
+
+
 
     return (
         <div className="chatbot-container" style={{ '--bg-image': `url(${bgimg})` }}>
