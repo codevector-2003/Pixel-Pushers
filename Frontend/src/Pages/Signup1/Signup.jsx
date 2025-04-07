@@ -8,33 +8,47 @@ import babyIcon from "../../Pages/Signup1/Signupimg/baby1.png"; // Adjust the pa
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [guardianName, setGuardianName] = useState("");
+  const [full_name, setFullName] = useState("");
+  const [guardian_name, setGuardianName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    
     try {
-      const response = await axios.post("http://localhost:5000/api/signup", {
-        guardianName,
+      const response = await axios.post("http://127.0.0.1:8078/signup", {
         email,
+        full_name,
+        guardian_name,
         username,
-        password
+        password,
       });
 
-      if (response.data.success) {
-        // You can store a token or navigate to another page
-        navigate("/signupnext"); // Change to your desired route
-      } else {
-        setErrorMsg(response.data.message || "Signup failed. Try again.");
-      }
+      // If we get here, the request was successful
+      console.log("Signup successful:", response.data);
+      navigate("/signupnext"); // Change to your desired route
+      
     } catch (error) {
       console.error("Signup error:", error);
-      setErrorMsg("Something went wrong. Please try again.");
+      
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        setErrorMsg(error.response.data.detail || "Signup failed. Try again.");
+      } else if (error.request) {
+        // The request was made but no response was received
+        setErrorMsg("No response from server. Please try again.");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        setErrorMsg("Something went wrong. Please try again.");
+      }
     }
   };
+
 
   return (
     <div className="signup-container" style={{ '--bg-image': `url(${bgImage})` }}>
