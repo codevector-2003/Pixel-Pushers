@@ -1,0 +1,28 @@
+.navbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    width: 50%;
+    height: 100%;
+    border-style: none;
+    box-shadow: 0px 4px 10px rgba(255, 182, 193, 0.5);
+}
+
+.navbox img {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    border-style: none;
+    cursor: pointer;
+    transition: ease-in-out;
+    transition-duration: 0.3s;
+    box-shadow: 0px 4px 10px rgba(255, 182, 193, 0.5);
+}
+
+.navbox img:hover {
+    transform: scale(1.3);
+
+}
