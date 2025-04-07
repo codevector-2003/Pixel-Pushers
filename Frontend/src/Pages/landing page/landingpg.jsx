@@ -8,26 +8,30 @@ import axios from "axios"; // Make sure to install this via `npm install axios`
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
+    const [username , setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/api/login', {
-                email,
-                password
-            });
-
-            if (response.data.success) {
-                // Save token or user data if needed
-                localStorage.setItem("token", response.data.token);
-                navigate("/dashboard"); // or your desired route
-            } else {
-                setError("Invalid credentials");
-            }
+            const response = await axios.post(
+                "http://127.0.0.1:8078/token",
+                new URLSearchParams({
+                    username: username,
+                    password: password,
+                }),
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                }
+            );
+    
+            const token = response.data.access_token;
+            localStorage.setItem("token", token);
+            navigate("/"); // Redirect on success
         } catch (err) {
-            setError("Something went wrong. Please try again.");
+            setError("Invalid username or password");
             console.error(err);
         }
     };
@@ -44,11 +48,11 @@ const LoginPage = () => {
 
                     <div className="form-container">
                         <input
-                            type='email'
-                            placeholder="Email"
+                            type='str'
+                            placeholder="Username"
                             className="Input-field"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <input
                             type='password'
