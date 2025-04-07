@@ -9,7 +9,6 @@ import babyIcon from "../../Pages/Signup1/Signupimg/baby1.png"; // Adjust the pa
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [full_name, setFullName] = useState("");
-  const [guardian_name, setGuardianName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,9 +22,13 @@ const Signup = () => {
       const response = await axios.post("http://127.0.0.1:8078/signup", {
         email,
         full_name,
-        guardian_name,
         username,
         password,
+      },
+      {
+        headers: {
+            "Content-Type": "application/json",
+        },
       });
 
       // If we get here, the request was successful
@@ -71,16 +74,16 @@ const Signup = () => {
         {/* Right Section */}
         <div className="right-section">
           <div className="signup-box">
-            <h2 className="label">Guardian’s Name</h2>
+            <h2 className="label">Full Name</h2>
             <p className="info-text">
-              The name of whoever will be taking care of the baby, ideally the mother. This is YOUR name, not your baby’s.
+              The name of the baby
             </p>
             <input
               type="text"
               placeholder="First Last"
               className="input-field"
-              value={guardianName}
-              onChange={(e) => setGuardianName(e.target.value)}
+              value={full_name}
+              onChange={(e) => setFullName(e.target.value)}
             />
 
             <h2 className="label">Email</h2>
