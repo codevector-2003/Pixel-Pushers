@@ -35,6 +35,14 @@ async def signup(user: UserCreate):
     created_user = user_collection.find_one({"_id": result.inserted_id})
     created_user["_id"] = str(created_user["_id"])
 
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": created_user["username"]},
+        expires_delta=access_token_expires
+    )
+
+    created_user["token"] = access_token
+
     return created_user
 
 @router.post("/token", response_model=Token)

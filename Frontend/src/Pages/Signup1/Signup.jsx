@@ -30,9 +30,13 @@ const Signup = () => {
             "Content-Type": "application/json",
         },
       });
-      if (response.data.access_token) {
-        localStorage.setItem("token", response.data.access_token);
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+
     }
+
+
+
       console.log("Signup successful:", response.data);
       navigate("/signupnext"); 
       
