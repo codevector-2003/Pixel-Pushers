@@ -441,7 +441,7 @@ const Dashboard = () => {
                             cursor: 'pointer',
                             paddingLeft: '10px'
                         }}>
-                            <img src={sendimg} alt="send" style={{ width: '20px', height: '20px' }} />
+                            <img src={sendimg} alt="send" style={{ width: '20px', height: '20px' }} onClick={() => navigate('/chatbot')} />
                         </button>
                     </div>
                 </div>

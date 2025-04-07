@@ -7,6 +7,7 @@ import Signup from './Pages/Signup1/Signup.jsx';
 import Signupnext from './Pages/Signupnext/Signupnext.jsx';
 import Vaccine from './Pages/Vaccine/vaccine.jsx';
 import Milestones from './Pages/Milestones/Record.jsx';
+import Chatbot from './Pages/chatbot/chatbot.jsx';
 
 import './App.css'
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/signupnext" element={<Signupnext />} />
         <Route path="/vaccine" element={<Vaccine />} />
         <Route path="/milestones" element={<Milestones />} />
+        <Route path="/chatbot" element={<Chatbot />} />
       </Routes>
     </Router>
   )
