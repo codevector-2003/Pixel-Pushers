@@ -12,12 +12,13 @@ from .milestones import router as milestone_router
 from .diet import router as diet_router
 from .vaccine import router as vaccine_router
 from .illness import router as illness_router
-from .growth import router as growth_router
 from .docters import router as doctor_router
 from .settings import router as settings_router
 from .allergy import router as allergy_router
 from .food import router as food_router
 from .recommendation import router as recommendation_router
+from .weight import router as weight_router
+from .height import router as height_router
 
 __all__ = [
     "auth_router",

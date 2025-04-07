@@ -36,16 +36,15 @@ class PyObjectId(str):
         )
 
 
-class GrowthRecordBase(BaseModel):
+class HeightRecordBase(BaseModel):
     date: date
-    weight: float = 0
     height: float = 0
     notes: Optional[str] = None
 
-class GrowthRecordCreate(GrowthRecordBase):
+class HeightRecordCreate(HeightRecordBase):
     pass
 
-class GrowthRecord(GrowthRecordBase):
+class HeightRecord(HeightRecordCreate):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     baby_id: str
     
@@ -54,7 +53,6 @@ class GrowthRecord(GrowthRecordBase):
         json_schema_extra = {
             "example": {
                 "date": "2023-04-01",
-                "weight": 6.5,
                 "height": 62.0,
                 "notes": "Healthy growth",
                 "baby_id": "507f1f77bcf86cd799439011"

@@ -36,16 +36,15 @@ class PyObjectId(str):
         )
 
 
-class GrowthRecordBase(BaseModel):
+class WeightRecordBase(BaseModel):
     date: date
     weight: float = 0
-    height: float = 0
     notes: Optional[str] = None
 
-class GrowthRecordCreate(GrowthRecordBase):
+class WeightRecordCreate(WeightRecordBase):
     pass
 
-class GrowthRecord(GrowthRecordBase):
+class WeightRecord(WeightRecordCreate):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     baby_id: str
     

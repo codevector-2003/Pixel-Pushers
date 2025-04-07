@@ -19,7 +19,8 @@ from .routers import (
     settings_router,
     vaccine_router,
     illness_router,
-    growth_router,
+    height_router,
+    weight_router,
 )
 from security import (get_current_active_user, 
                       get_current_user, 

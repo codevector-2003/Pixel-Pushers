@@ -1,3 +1,4 @@
+"""
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from bson import ObjectId
@@ -107,7 +108,7 @@ async def get_growth_graph_data(
     baby_id: str,
     current_user: dict = Depends(get_current_active_user)
 ):
-    """
+    """"""""
     Returns growth data formatted specifically for frontend graphing
     Format: [
         {date: "2023-01-01", weight: 3.5, height: 52.0},
@@ -115,6 +116,7 @@ async def get_growth_graph_data(
         ...
     ]
     """
+"""
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
     growth_records = list(growth_collection.find(
@@ -198,3 +200,5 @@ async def get_latest_growth_assessment(
         height_cm=latest_record["height"]
     )
     return assessment
+
+"""

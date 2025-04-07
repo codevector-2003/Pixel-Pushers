@@ -10,10 +10,11 @@ from routers import (
     settings_router,
     vaccine_router,
     illness_router,
-    growth_router,
     allergy_router,
     food_router,
     recommendation_router,   
+    weight_router,
+    height_router,
 )
 
 app = FastAPI(title="Smart Baby LK", version="1.0.0")
@@ -36,7 +37,8 @@ app.include_router(milestone_router)
 app.include_router(settings_router)
 app.include_router(vaccine_router)
 app.include_router(illness_router)
-app.include_router(growth_router)
+app.include_router(weight_router)
+app.include_router(height_router)
 app.include_router(allergy_router)
 app.include_router(food_router)
 app.include_router(recommendation_router)
