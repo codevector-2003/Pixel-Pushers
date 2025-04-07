@@ -36,6 +36,7 @@ async def create_milestone(
     
     result = milestone_collection.insert_one(milestone_dict)
     created_milestone = milestone_collection.find_one({"_id": result.inserted_id})
+    created_milestone["_id"] = str(created_milestone["_id"])
     return Milestone(**created_milestone)
 
 
@@ -106,7 +107,7 @@ async def read_language_milestones(
     }))
     return [Milestone(**m) for m in milestones]
 
-@router.put("/babies/{baby_id}/milestones/{milestone_id}", response_model=Milestone)
+@router.put("/babies/{baby_id}/milestones/{milestone_id}")
 async def update_milestone(
     baby_id: str, 
     milestone_id: str, 
@@ -115,12 +116,18 @@ async def update_milestone(
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
-    update_data = milestone_update.dict(exclude_unset=True)
+    update_data = milestone_update.model_dump()
+    if "date" in update_data:
+        update_data["date"] = datetime.combine(update_data["date"], datetime.min.time())
+        
+    update_data["baby_id"] = baby_id
+
     milestone_collection.update_one(
         {"_id": ObjectId(milestone_id), "baby_id": baby_id},
         {"$set": update_data}
     )
     updated_milestone = milestone_collection.find_one({"_id": ObjectId(milestone_id)})
+    updated_milestone["_id"] = str(updated_milestone["_id"])
     return Milestone(**updated_milestone)
 
 @router.delete("/babies/{baby_id}/milestones/{milestone_id}")

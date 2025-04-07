@@ -7,6 +7,7 @@ from typing import Optional
 from config import vaccine_collection, baby_collection
 from security import get_current_active_user
 from utils.baby_vaccination_db import STANDARD_VACCINES
+from datetime import datetime
 
 router = APIRouter(tags=["vaccines"])
 
@@ -27,10 +28,10 @@ async def mark_vaccine_as_given(
     current_user: dict = Depends(get_current_active_user)
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
-    
+    given_datetime = datetime.combine(given_date, datetime.min.time())
     update_data = {
         "given": True,
-        "given_date": given_date
+        "given_date": given_datetime
     }
     
     vaccine_collection.update_one(
@@ -38,6 +39,7 @@ async def mark_vaccine_as_given(
         {"$set": update_data}
     )
     updated_vaccine = vaccine_collection.find_one({"_id": ObjectId(vaccine_id)})
+    updated_vaccine["_id"] = str(updated_vaccine["_id"])
     return updated_vaccine
 
 @router.get("/babies/{baby_id}/vaccines/", response_model=List[Vaccine])

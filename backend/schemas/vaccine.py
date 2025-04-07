@@ -36,7 +36,7 @@ class PyObjectId(str):
 
 class VaccineBase(BaseModel):
     name: str
-    standard_date: str  # e.g., "At Birth", "2 months", "6 months" etc.
+    standard_date: Optional[str]  # e.g., "At Birth", "2 months", "6 months" etc.
     disease_protected: str
     notes: str
     given: bool = False

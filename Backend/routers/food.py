@@ -24,11 +24,12 @@ async def create_food(
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
-    food_dict = food.dict()
-    food_dict["baby_id"] = baby_id
+    food_data = food.model_dump()
+    food_data["baby_id"] = baby_id
     
-    result = food_collection.insert_one(food_dict)
+    result = food_collection.insert_one(food_data)
     created_food = food_collection.find_one({"_id": result.inserted_id})
+    created_food["_id"] = str(created_food["_id"])
     return foodRecord(**created_food)
 
 @router.get("/babies/{baby_id}/foods/", response_model=List[foodRecord])

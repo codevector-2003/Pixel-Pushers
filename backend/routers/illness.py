@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from bson import ObjectId
+from datetime import datetime
 
 from schemas.illness import IllnessRecord, IllnessRecordCreate
 from config import illness_collection, baby_collection
@@ -25,12 +26,14 @@ async def create_illness_record(
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
-    illness_dict = illness.dict()
-    illness_dict["baby_id"] = baby_id
+    illness_data = illness.model_dump()
+    illness_data["baby_id"] = baby_id
+    illness_data["date"] = datetime.combine(illness_data["date"], datetime.min.time())
     
-    result = illness_collection.insert_one(illness_dict)
+    result = illness_collection.insert_one(illness_data)
     created_illness = illness_collection.find_one({"_id": result.inserted_id})
-    return created_illness
+    created_illness["_id"] = str(created_illness["_id"])
+    return IllnessRecord(**created_illness)
 
 @router.get("/babies/{baby_id}/illness/", response_model=List[IllnessRecord])
 async def read_illness_records(
@@ -73,13 +76,16 @@ async def update_illness_record(
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
-    update_data = illness_update.dict(exclude_unset=True)
-    illness_collection.update_one(
+    update_data = illness_update.model_dump()
+    update_data["date"] = datetime.combine(update_data["date"], datetime.min.time())
+    result = illness_collection.update_one(
         {"_id": ObjectId(illness_id), "baby_id": baby_id},
         {"$set": update_data}
     )
+    
     updated_illness = illness_collection.find_one({"_id": ObjectId(illness_id)})
-    return updated_illness
+    updated_illness["_id"] = str(updated_illness["_id"])
+    return IllnessRecord(**updated_illness)
 
 @router.delete("/babies/{baby_id}/illness/{illness_id}")
 async def delete_illness_record(

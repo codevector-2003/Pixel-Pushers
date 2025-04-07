@@ -12,10 +12,8 @@ from routers import (
     growth_router,
     allergy_router,
     food_router,
-    recommendation_router,
-    
+    recommendation_router,   
 )
-
 
 app = FastAPI(title="Smart Baby LK", version="1.0.0")
 

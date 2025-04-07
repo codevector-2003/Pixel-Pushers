@@ -66,6 +66,7 @@ class Baby(BabyBase):
 
     class Config:
         json_encoders = {ObjectId: str}
+        allow_population_by_field_name = True
         json_schema_extra = {
             "example": {
                 "name": "Emma Smith",

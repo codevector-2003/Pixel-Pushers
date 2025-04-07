@@ -48,4 +48,4 @@ async def generate_diet_recommendation(
         response = setup_genai().generate_content(prompt)
         return response.text
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Diet plan generation failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Diet plan generation failed: {str(e)}") 

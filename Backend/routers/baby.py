@@ -37,27 +37,6 @@ async def create_baby(
     await initialize_standard_vaccines(str(result.inserted_id), current_user)
     return created_baby
 
-@router.post("/babies/{baby_id}/vaccines/initialize", response_model=List[Vaccine])
-async def initialize_standard_vaccines(
-    baby_id: str,
-    current_user: dict = Depends(get_current_active_user)
-):
-    verify_baby_ownership(baby_id, str(current_user["_id"]))
-    
-    # First delete any existing vaccines for this baby
-    vaccine_collection.delete_many({"baby_id": baby_id})
-    
-    # Insert all standard vaccines
-    vaccines = []
-    for vaccine_data in STANDARD_VACCINES:
-        vaccine_data["baby_id"] = baby_id
-        vaccine_data["given"] = False
-        result = vaccine_collection.insert_one(vaccine_data)
-        vaccine = vaccine_collection.find_one({"_id": result.inserted_id})
-        vaccines.append(vaccine)
-    
-    return vaccines
-
 
 @router.get("/babies/", response_model=List[Baby])
 async def read_babies(
@@ -70,7 +49,7 @@ async def read_babies(
         skip=skip,
         limit=limit
     ))
-    return babies
+    return [Baby(**baby) for baby in babies]
 
 @router.get("/babies/{baby_id}", response_model=Baby)
 async def read_baby(
@@ -94,11 +73,16 @@ async def update_baby(
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
     update_data = baby_update.dict(exclude_unset=True)
+
+    if isinstance(update_data.get("birth_date"), date):
+        update_data["birth_date"] = datetime.combine(update_data["birth_date"], datetime.min.time())
+    
     baby_collection.update_one(
         {"_id": ObjectId(baby_id)},
         {"$set": update_data}
     )
     updated_baby = baby_collection.find_one({"_id": ObjectId(baby_id)})
+    updated_baby["_id"] = str(updated_baby["_id"])
     return updated_baby
 
 @router.delete("/babies/{baby_id}")
@@ -112,3 +96,28 @@ async def delete_baby(
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Baby not found")
     return {"message": "Baby deleted successfully"}
+
+@router.post("/babies/{baby_id}/vaccines/initialize", response_model=List[Vaccine])
+async def initialize_standard_vaccines(
+    baby_id: str,
+    current_user: dict = Depends(get_current_active_user)
+):
+    verify_baby_ownership(baby_id, str(current_user["_id"]))
+
+    # Delete existing vaccines for the baby
+    vaccine_collection.delete_many({"baby_id": baby_id})
+
+    # Insert standard vaccines with added fields
+    vaccines = []
+    for vaccine_data in STANDARD_VACCINES:
+        vaccine_data_with_meta = {
+            **vaccine_data,
+            "baby_id": baby_id,
+            "given": False
+        }
+        result = vaccine_collection.insert_one(vaccine_data_with_meta)
+        inserted_vaccine = vaccine_collection.find_one({"_id": result.inserted_id})
+        inserted_vaccine["_id"] = str(inserted_vaccine["_id"])
+        vaccines.append(inserted_vaccine)
+
+    return vaccines

@@ -24,11 +24,12 @@ async def create_allergy(
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
-    allergy_dict = allergy.dict()
-    allergy_dict["baby_id"] = baby_id
+    allergy_data = allergy.model_dump()
+    allergy_data["baby_id"] = baby_id
     
-    result = allergy_collection.insert_one(allergy_dict)
+    result = allergy_collection.insert_one(allergy_data)
     created_allergy = allergy_collection.find_one({"_id": result.inserted_id})
+    created_allergy["_id"] = str(created_allergy["_id"])
     return allergyRecord(**created_allergy)
 
 @router.get("/babies/{baby_id}/allergies/", response_model=List[allergyRecord])

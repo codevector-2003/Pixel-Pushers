@@ -85,6 +85,7 @@ async def update_diet_record(
         {"$set": update_data}
     )
     updated_diet = diet_collection.find_one({"_id": ObjectId(diet_id)})
+    updated_diet["_id"] = str(updated_diet["_id"])
     return updated_diet
 
 @router.delete("/babies/{baby_id}/diet/{diet_id}")
