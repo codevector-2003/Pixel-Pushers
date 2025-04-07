@@ -4,7 +4,7 @@ from datetime import timedelta
 from typing import Annotated
 
 from schemas.user import User, UserCreate, Token
-from config import user_collection
+from config import user_collection , baby_collection
 from security import (
     get_password_hash,
     create_access_token,
@@ -40,6 +40,11 @@ async def signup(user: UserCreate):
         data={"sub": created_user["username"]},
         expires_delta=access_token_expires
     )
+
+    baby_id = baby_collection.find_one({"parent_id": str(created_user["_id"])})
+
+    if baby_id:
+        created_user["baby_id"] = str(baby_id["_id"])
 
     created_user["token"] = access_token
 

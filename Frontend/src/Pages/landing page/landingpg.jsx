@@ -29,6 +29,10 @@ const LoginPage = () => {
 
             const token = response.data.access_token;
             localStorage.setItem("token", token);
+            
+            const baby_id = response.data.baby_id;
+            localStorage.setItem("baby_id", baby_id);
+
             navigate("/dashboard"); // Redirect on success
         } catch (err) {
             setError("Invalid username or password");
