@@ -46,6 +46,8 @@ async def read_foods(
         skip=skip,
         limit=limit
     ))
+    for food in foods:
+        food["_id"] = str(food["_id"])
     return [foodRecord(**f) for f in foods]
 
 @router.delete("/babies/{baby_id}/foods/{food_id}")

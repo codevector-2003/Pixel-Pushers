@@ -28,11 +28,13 @@ async def create_growth_record(
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
-    growth_dict = growth.dict()
-    growth_dict["baby_id"] = baby_id
+    growth_data = growth.model_dump()
+    growth_data["baby_id"] = baby_id
     
-    result = growth_collection.insert_one(growth_dict)
+    result = growth_collection.insert_one(growth_data)
     created_growth = growth_collection.find_one({"_id": result.inserted_id})
+    created_growth["_id"] = str(created_growth["_id"])
+    created_growth["baby_id"] = baby_id 
     return created_growth
 
 @router.get("/babies/{baby_id}/growth/", response_model=List[GrowthRecord])

@@ -1,26 +1,14 @@
-# app/routers/doctor.py
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from datetime import datetime
 from bson import ObjectId
-from pydantic import BaseModel
 
 from config import doctor_chat_collection
 from security import get_current_active_user
 from utils.genai_chat import setup_genai, get_doctor_reply
+from schemas.docters import ChatMessage, ChatMessageResponse
 
 router = APIRouter(tags=["doctor"])
-
-class ChatMessage(BaseModel):
-    text: str
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "text": "Why my milk is red?"
-            }
-        }
-    
 
 @router.post("/doctor/chat/", response_model=dict)
 async def create_chat_message(
@@ -57,8 +45,7 @@ async def create_chat_message(
 
     return {"user_message": user_msg, "doctor_reply": reply_text}
 
-
-@router.get("/doctor/chat/", response_model=List[dict])
+@router.get("/doctor/chat/", response_model=List[ChatMessageResponse])
 async def read_chat_messages(
     skip: int = 0,
     limit: int = 100,
@@ -67,7 +54,11 @@ async def read_chat_messages(
     user_id = str(current_user["_id"])
     
     messages = list(doctor_chat_collection.find(
-        {"user_id": user_id},
-    ).sort("timestamp", 1).skip(skip).limit(limit))  # Sort ASCENDING
+        {"user_id": user_id}
+    ).sort("timestamp", 1).skip(skip).limit(limit))
 
-    return messages
+    validated_messages = []
+    for msg in messages:
+        msg["_id"] = str(msg["_id"])  # Explicit conversion
+        validated_messages.append(ChatMessageResponse.model_validate(msg))
+    return validated_messages

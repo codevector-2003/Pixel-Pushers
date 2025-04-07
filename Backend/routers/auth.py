@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
+from typing import Annotated
 
 from schemas.user import User, UserCreate, Token
 from config import user_collection
@@ -8,6 +9,7 @@ from security import (
     get_password_hash,
     create_access_token,
     authenticate_user,
+    get_current_active_user,
     ACCESS_TOKEN_EXPIRE_MINUTES
 )
 
@@ -35,7 +37,19 @@ async def signup(user: UserCreate):
     return created_user
 
 @router.post("/token", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login_for_access_token(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
+):
+    """
+    OAuth2 compatible token login, get an access token for future requests
+    
+    - **username**: Your username
+    - **password**: Your password
+    
+    Returns:
+    - **access_token**: JWT token to be used in Authorization header
+    - **token_type**: Will always be "bearer"
+    """
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -43,8 +57,21 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    
+    # Token expiration time
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    
+    # Create token with username as subject
     access_token = create_access_token(
-        data={"sub": user["username"]}, expires_delta=access_token_expires
+        data={"sub": user["username"]},  # 'sub' is standard JWT field for subject
+        expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",  # Must be "bearer" for OAuth2 compatibility
+    }
+
+@router.get("/protected-route")
+async def protected_route(current_user: dict = Depends(get_current_active_user)):
+    return {"message": "This is a protected route", "user": current_user["username"]}

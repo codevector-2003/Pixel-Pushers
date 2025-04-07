@@ -52,5 +52,11 @@ async def read_vaccines(
     verify_baby_ownership(baby_id, str(current_user["_id"]))
     
     vaccines = list(vaccine_collection.find({"baby_id": baby_id} , skip=skip, limit=limit))
-    return vaccines
+
+    validated_vaccines = []
+    for vaccine in vaccines:
+        vaccine["_id"] = str(vaccine["_id"])  # Convert ObjectId to string
+        validated_vaccines.append(Vaccine.model_validate(vaccine))
+
+    return validated_vaccines
 

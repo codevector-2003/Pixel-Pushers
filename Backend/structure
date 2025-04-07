@@ -3,18 +3,19 @@ smartbaby_backend/
 │   ├── main.py
 │   ├── database.py
 │   ├── schemas/
-│   │   ├── baby.py
-│   │   ├── diet.py
-│   │   ├── milestone.py
+│   │   ├── baby.py        
+│   │   ├── diet.py        
+│   │   ├── doctor.py      
+│   │   ├── milestone.py  
 │   │   ├── vaccinepy
-│   │   ├── user.py
+│   │   ├── user.py      
 │   │   ├── illness.py
 │   │   └── growth.py
 │   └── routers/
-│       ├── auth.py
-│       ├── baby.py
-│       ├── diet.py
-│       ├── doctor.py
+│       ├── auth.py 
+│       ├── baby.py  -
+│       ├── diet.py  -
+│       ├── doctor.py  
 │       ├── milestone.py
 │       ├── settings.py
 │       ├── vaccine.py

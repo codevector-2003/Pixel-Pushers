@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.utils import get_openapi
 from routers import (
     auth_router,
     baby_router,
@@ -40,6 +41,39 @@ app.include_router(allergy_router)
 app.include_router(food_router)
 app.include_router(recommendation_router)
 
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    
+    openapi_schema = get_openapi(
+        title="Smart Baby LK",
+        version="1.0.0",
+        description="API for Smart Baby LK application",
+        routes=app.routes,
+    )
+    
+    # Add security definitions
+    openapi_schema["components"] = {
+        "securitySchemes": {
+            "OAuth2PasswordBearer": {
+                "type": "oauth2",
+                "flows": {
+                    "password": {
+                        "tokenUrl": "token",
+                        "scopes": {}
+                    }
+                }
+            }
+        }
+    }
+    
+    # Add global security requirement
+    openapi_schema["security"] = [{"OAuth2PasswordBearer": []}]
+    
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
 
 if __name__ == "__main__":
     import uvicorn

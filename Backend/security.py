@@ -4,13 +4,15 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from fastapi import HTTPException, status
 from config import user_collection
-from schemas.user import TokenData # *****Import and
+from schemas.user import TokenData 
+from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends
 import os
-
 # Security configurations
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -38,7 +40,7 @@ def authenticate_user(username: str, password: str):
         return False
     return user
 
-async def get_current_user(token: str):
+async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -58,7 +60,8 @@ async def get_current_user(token: str):
         raise credentials_exception
     return user
 
-async def get_current_active_user(current_user: dict):
+async def get_current_active_user(current_user:dict = Depends(get_current_user)):
     if not current_user.get("is_active", True):
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
+

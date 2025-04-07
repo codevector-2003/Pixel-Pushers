@@ -49,6 +49,10 @@ async def read_diet_records(
         skip=skip,
         limit=limit
     ))
+    for record in diet_records:
+        record["_id"] = str(record["_id"])
+        if "baby_id" in record:  
+            record["baby_id"] = str(record["baby_id"])
     return diet_records
 
 @router.get("/babies/{baby_id}/diet/{diet_id}", response_model=DietRecord)
@@ -65,6 +69,8 @@ async def read_diet_record(
     })
     if diet_record is None:
         raise HTTPException(status_code=404, detail="Diet record not found")
+    
+    diet_record["_id"] = str(diet_record["_id"])
     return diet_record
 
 @router.put("/babies/{baby_id}/diet/{diet_id}", response_model=DietRecord)

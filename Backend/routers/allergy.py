@@ -46,6 +46,9 @@ async def read_allergies(
         skip=skip,
         limit=limit
     ))
+
+    for allergy in allergies:
+        allergy["_id"] = str(allergy["_id"])
     return [allergyRecord(**a) for a in allergies]
 
 @router.delete("/babies/{baby_id}/allergies/{allergy_id}")
