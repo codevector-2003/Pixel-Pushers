@@ -1,20 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./vaccine.css";
 import bgimg from '../../Pages/Vaccine/Vaccineimg/Rectangle3467956.png';
 import Navbar from '../../Components/Navbar.jsx';
 import searchimg from '../growthpage/growthpageimg/search.png';
 import bellimg from '../growthpage/growthpageimg/bell1.png';
+import axios from "axios";
 
 const Vaccine = () => {
+  const [vaccines, setVaccines] = useState([]);
+  const babyId = "your_baby_id_here"; // Replace with actual ID or route param
+  const token = "your_auth_token_here"; // Replace with your auth method
+
+  useEffect(() => {
+    const fetchVaccines = async () => {
+      try {
+        const response = await axios.get(`/babies/${babyId}/vaccines/`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setVaccines(response.data);
+      } catch (err) {
+        console.error("Error fetching vaccines:", err);
+      }
+    };
+
+    fetchVaccines();
+  }, [babyId]);
+
+  const handleCheckboxChange = async (vaccineId, currentStatus) => {
+    if (currentStatus) return; // Already given, do nothing
+
+    const today = new Date().toISOString().split("T")[0];
+
+    try {
+      const response = await axios.put(
+        `/babies/${babyId}/vaccines/${vaccineId}/mark?given_date=${today}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      console.log("Vaccine response:", response.data);
+      // Update state with newly marked vaccine
+      setVaccines(prev =>
+        prev.map(v =>
+          v.id === vaccineId ? { ...v, given: true, given_date: today } : v
+        )
+      );
+    } catch (err) {
+      console.error("Error marking vaccine:", err);
+    }
+  };
+
   return (
-    <div className="vaccine-container" style={{ '--bg-image': `url(${bgimg})` }} >
+    <div className="vaccine-container" style={{ '--bg-image': `url(${bgimg})` }}>
       <title>Vaccine</title>
       <div className="navbar">
         <Navbar />
       </div>
 
       <div className="content">
-
         <div className="growthpage__header">
           <div className="search-bar">
             <div className="search-icon">
@@ -28,95 +76,42 @@ const Vaccine = () => {
           </div>
         </div>
 
-
         <div className="table-container">
           <table className="vaccine-table">
             <thead>
               <tr>
                 <th>STATUS</th>
                 <th>VACCINE NAME</th>
-                <th>DATE</th>
-                <th>BATCH NUMBER</th>
+                <th>GIVEN DATE</th>
                 <th>NOTES</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>Hepatitis B</td>
-                <td>Pending</td>
-                <td>123456</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>Rotavirus</td>
-                <td>Pending</td>
-                <td>123456</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" defaultChecked /></td>
-                <td>COVID-19 Vaccine</td>
-                <td>2023-01-15</td>
-                <td>123456</td>
-                <td>First dose</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" defaultChecked /></td>
-                <td>Influenza Vaccine</td>
-                <td>2023-10-05</td>
-                <td>123456</td>
-                <td>Annual flu shot</td>
-              </tr>
-              <tr className="overdue">
-                <td><span className="icon">!</span></td>
-                <td className="red-text">Tetanus Booster</td>
-                <td className="red-text">Overdue</td>
-                <td>-</td>
-                <td>Every 10 years</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" defaultChecked /></td>
-                <td>MMR Vaccine</td>
-                <td>2023-05-12</td>
-                <td>123456</td>
-                <td>Measles, mumps, rubella</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" defaultChecked /></td>
-                <td>Hepatitis B Vaccine</td>
-                <td>2023-07-30</td>
-                <td>123456</td>
-                <td>Series of three doses</td>
-              </tr>
-              <tr className="overdue">
-                <td><span className="icon">!</span></td>
-                <td className="red-text">Varicella Vaccine</td>
-                <td className="red-text">Overdue</td>
-                <td>123456</td>
-                <td>Chickenpox vaccine</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" defaultChecked /></td>
-                <td>HPV Vaccine</td>
-                <td>2023-04-25</td>
-                <td>-</td>
-                <td>Series of two doses</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" defaultChecked /></td>
-                <td>Pertussis</td>
-                <td>2023-08-15</td>
-                <td>123456</td>
-                <td>Recommended for adults 50+</td>
-              </tr>
+              {vaccines.map((vaccine) => (
+                <tr
+                  key={vaccine.id}
+                  className={!vaccine.given && new Date(vaccine.standard_date) < new Date() ? "overdue" : ""}
+                >
+                  <td>
+                    {vaccine.given ? (
+                      <input type="checkbox" checked readOnly />
+                    ) : (
+                      <input
+                        type="checkbox"
+                        onChange={() => handleCheckboxChange(vaccine.id, vaccine.given)}
+                      />
+                    )}
+                  </td>
+                  <td className={!vaccine.given ? "red-text" : ""}>{vaccine.name}</td>
+                  <td className={!vaccine.given ? "red-text" : ""}>
+                    {vaccine.given ? vaccine.given_date : "Pending"}
+                  </td>
+                  <td>{vaccine.notes || "-"}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-
-
-
       </div>
     </div>
   );
