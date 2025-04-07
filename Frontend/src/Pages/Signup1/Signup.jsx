@@ -26,7 +26,7 @@ const Signup = () => {
 
       if (response.data.success) {
         // You can store a token or navigate to another page
-        navigate("/dashboard"); // Change to your desired route
+        navigate("/signupnext"); // Change to your desired route
       } else {
         setErrorMsg(response.data.message || "Signup failed. Try again.");
       }
