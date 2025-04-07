@@ -311,7 +311,7 @@ const Dashboard = () => {
                 </div>
 
 
-                ‍<div className="vaccine-tracker" onClick={() => navigate(`/babies/${newBabyId}/vaccines`)}>
+                ‍<div className="vaccine-tracker" onClick={() => navigate('/vaccine')}>
                     <p style={{ fontFamily: 'Poppins', fontSize: '18px', margin: '7px 0 0 20px' }}>Vaccine tracker</p>
                     {vaccineData && (
                         <div style={{ padding: '10px 20px' }}>
