@@ -26,29 +26,27 @@ const Signupnext = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        setErrorMsg("Acess Token not found. Please try again.");
+        setErrorMsg("Access Token not found. Please try again.");
         return;
-
       }
+
       const response = await axios.post("http://127.0.0.1:8078/babies", {
         Gurdian_name,
         birth_date,
         gender,
         blood_Type,
         preterm
-      },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-          },
-        });
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+      });
 
+      console.log("Backend response:", response.data);
 
-
-      if (response.data.success) {
-        // Navigate to home or dashboard
-        navigate("/login"); // Adjust as needed
+      if (response.status === 200 || response.status === 201) {
+        navigate("/login");
       } else {
         setErrorMsg(response.data.message || "Submission failed. Try again.");
       }
@@ -56,6 +54,7 @@ const Signupnext = () => {
       console.error("Error submitting baby info:", error);
       setErrorMsg("Something went wrong. Try again.");
     }
+
   };
 
   return (
