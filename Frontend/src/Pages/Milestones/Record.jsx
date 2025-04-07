@@ -44,6 +44,10 @@ const Record = () => {
     closeModal();
   };
 
+
+
+
+  
   return (
     <div className="record-container" style={{ '--bg-image': `url(${bgimg})` }}>
       <div className="navbar">
