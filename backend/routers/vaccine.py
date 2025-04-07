@@ -46,7 +46,7 @@ async def mark_vaccine_as_given(
 async def read_vaccines(
     baby_id: str,
     skip: int = 0, 
-    limit: int = 8, 
+    limit: int = 100, 
     current_user: dict = Depends(get_current_active_user)
 ):
     verify_baby_ownership(baby_id, str(current_user["_id"]))
