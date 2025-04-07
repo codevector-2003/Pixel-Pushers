@@ -12,12 +12,22 @@ from schemas.vaccine import Vaccine
 router = APIRouter(tags=["babies"])
 
 def verify_baby_ownership(baby_id: str, user_id: str):
+    # First validate the baby_id format
+    if not baby_id or not ObjectId.is_valid(baby_id):
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid baby ID format or no baby registered"
+        )
+    
     baby = baby_collection.find_one({
         "_id": ObjectId(baby_id),
         "parent_id": user_id
     })
     if not baby:
-        raise HTTPException(status_code=404, detail="Baby not found or access denied")
+        raise HTTPException(
+            status_code=404,
+            detail="Baby not found or not owned by user"
+        )
     return True
 
 @router.post("/babies/", response_model=Baby)

@@ -9,6 +9,7 @@ import axios from "axios";
 const Vaccine = () => {
   const [vaccines, setVaccines] = useState([]);
   const baby_id = localStorage.getItem("baby_id");
+        
   const token = localStorage.getItem("token");
         if (!token) {
           console.error("Access Token not found. Please try again.");
