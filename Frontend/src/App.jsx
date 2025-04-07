@@ -22,7 +22,7 @@ function App() {
         <Route path="/growthpage" element={<Growthpage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signupnext" element={<Signupnext />} />
-        <Route path="/babies/:baby_id/vaccines" element={<Vaccine />} />
+        <Route path="/vaccine" element={<Vaccine />} />
         <Route path="/milestones" element={<Milestones />} />
         <Route path="/chatbot" element={<Chatbot />} />
       </Routes>
