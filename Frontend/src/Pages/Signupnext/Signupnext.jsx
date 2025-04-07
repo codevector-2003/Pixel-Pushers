@@ -7,30 +7,44 @@ import axios from 'axios'; //  npm install axios
 import { useNavigate } from "react-router-dom";
 
 const Signupnext = () => {
-  const [babyName, setBabyName] = useState("");
-  const [sex, setSex] = useState(null);
+  const [Gurdian_name, setGurdianName] = useState("");
+  const [gender, setSex] = useState(null);
   const [preterm, setPreterm] = useState(null);
-  const [bloodType, setBloodType] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [blood_Type, setBloodType] = useState("");
+  const [birth_date, setBirthday] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
   const birthdayRef = useRef(null);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    if (!babyName || !sex || !birthday || !bloodType || !preterm) {
+    if (!Gurdian_name || !gender || !birth_date || !blood_Type || !preterm) {
       setErrorMsg("Please fill out all fields.");
       return;
     }
 
     try {
+      const token = localStorage.getItem("token");
+        if (!token) {
+            setErrorMsg("Acess Token not found. Please try again.");
+            return;
+      
+    }
       const response = await axios.post("http://127.0.0.1:8078/babies", {
-        babyName,
-        sex,
-        birthday,
-        bloodType,
+        Gurdian_name,
+        birth_date,
+        gender,
+        blood_Type,
         preterm
+      },
+      {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
       });
+      
+      
 
       if (response.data.success) {
         // Navigate to home or dashboard
@@ -65,19 +79,19 @@ const Signupnext = () => {
         {/* Right Section */}
         <div className="right-section new-box-style">
           <div className="signup-box">
-            <h2 className="label">Baby's Full Name</h2>
+            <h2 className="label">Guardian's Full Name</h2>
             <input
               type="text"
-              placeholder="Full Name"
+              placeholder="Guardian's Full Name"
               className="input-field"
-              value={babyName}
-              onChange={(e) => setBabyName(e.target.value)}
+              value={Gurdian_name}
+              onChange={(e) => setGurdianName(e.target.value)}
             />
 
-            <h2 className="label">Sex</h2>
+            <h2 className="label">Gender</h2>
             <div className="toggle-buttons">
-              <button className={`toggle-button ${sex === "Male" ? "active" : ""}`} onClick={() => setSex("Male")}>Male</button>
-              <button className={`toggle-button ${sex === "Female" ? "active" : ""}`} onClick={() => setSex("Female")}>Female</button>
+              <button className={`toggle-button ${gender === "male" ? "active" : ""}`} onClick={() => setSex("male")}>Male</button>
+              <button className={`toggle-button ${gender === "female" ? "active" : ""}`} onClick={() => setSex("female")}>Female</button>
             </div>
 
             <h2 className="label">Birthday</h2>
@@ -85,7 +99,7 @@ const Signupnext = () => {
               <input
                 type="date"
                 ref={birthdayRef}
-                value={birthday}
+                value={birth_date}
                 onChange={(e) => setBirthday(e.target.value)}
                 className="input-field date-input"
               />
@@ -94,7 +108,7 @@ const Signupnext = () => {
             <h2 className="label">Blood Type</h2>
             <select
               className="drop-down"
-              value={bloodType}
+              value={blood_Type}
               onChange={(e) => setBloodType(e.target.value)}
             >
               <option value="" disabled>Select Blood Type</option>
@@ -110,8 +124,8 @@ const Signupnext = () => {
 
             <h2 className="label">Preterm?</h2>
             <div className="toggle-buttons">
-              <button className={`toggle-button ${preterm === "Yes" ? "active" : ""}`} onClick={() => setPreterm("Yes")}>Yes</button>
-              <button className={`toggle-button ${preterm === "No" ? "active" : ""}`} onClick={() => setPreterm("No")}>No</button>
+              <button className={`toggle-button ${preterm === "true" ? "active" : ""}`} onClick={() => setPreterm("true")}>Yes</button>
+              <button className={`toggle-button ${preterm === "false" ? "active" : ""}`} onClick={() => setPreterm("false")}>No</button>
             </div>
 
             {errorMsg && <p className="error-text">{errorMsg}</p>}

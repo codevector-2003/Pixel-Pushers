@@ -16,7 +16,7 @@ from security import (
 
 router = APIRouter(tags=["authentication"])
 
-@router.post("/signup", response_model=User)
+@router.post("/signup")
 async def signup(user: UserCreate):
     # Check if user exists
     if user_collection.find_one({"email": user.email}):
@@ -34,6 +34,7 @@ async def signup(user: UserCreate):
     result = user_collection.insert_one(user_dict)
     created_user = user_collection.find_one({"_id": result.inserted_id})
     created_user["_id"] = str(created_user["_id"])
+
     return created_user
 
 @router.post("/token", response_model=Token)

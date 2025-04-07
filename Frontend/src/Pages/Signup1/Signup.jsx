@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import axios from "axios"; // Don't forget: npm install axios
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import bgImage from "../../Pages/Signup1/Signupimg/Rectangle3467956.png"; // Adjust the path as necessary
-import babyIcon from "../../Pages/Signup1/Signupimg/baby1.png"; // Adjust the path as necessary
+import bgImage from "../../Pages/Signup1/Signupimg/Rectangle3467956.png";
+import babyIcon from "../../Pages/Signup1/Signupimg/baby1.png";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +16,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     
     try {
       const response = await axios.post("http://127.0.0.1:8078/signup", {
@@ -30,33 +30,28 @@ const Signup = () => {
             "Content-Type": "application/json",
         },
       });
-
-      // If we get here, the request was successful
+      if (response.data.access_token) {
+        localStorage.setItem("token", response.data.access_token);
+    }
       console.log("Signup successful:", response.data);
-      navigate("/signupnext"); // Change to your desired route
+      navigate("/signupnext"); 
       
     } catch (error) {
       console.error("Signup error:", error);
       
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         setErrorMsg(error.response.data.detail || "Signup failed. Try again.");
       } else if (error.request) {
-        // The request was made but no response was received
         setErrorMsg("No response from server. Please try again.");
       } else {
-        // Something happened in setting up the request that triggered an Error
         setErrorMsg("Something went wrong. Please try again.");
       }
     }
   };
 
-
   return (
     <div className="signup-container" style={{ '--bg-image': `url(${bgImage})` }}>
       <div className="signup-content">
-        {/* Left Section */}
         <div className="left-section">
           <div className="icon">
             <img src={babyIcon} alt="baby icon" />
@@ -71,7 +66,6 @@ const Signup = () => {
           </p>
         </div>
 
-        {/* Right Section */}
         <div className="right-section">
           <div className="signup-box">
             <h2 className="label">Full Name</h2>

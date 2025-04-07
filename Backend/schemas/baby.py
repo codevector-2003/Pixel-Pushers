@@ -40,14 +40,13 @@ class PyObjectId(str):
 class GenderEnum(str, Enum):
     MALE = "male"
     FEMALE = "female"
-    OTHER = "other"
 
 class BabyBase(BaseModel):
-    name: str
+    Gurdian_name: str
     birth_date: date
     gender: Optional[GenderEnum] = None
-    birth_weight: Optional[float] = None
-    birth_height: Optional[float] = None
+    blood_Type: str
+    preterm: Optional[bool] = None
 
 
 class BabyCreate(BabyBase):
