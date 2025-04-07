@@ -46,7 +46,7 @@ const Signupnext = () => {
       console.log("Backend response:", response.data);
 
       if (response.status === 200 || response.status === 201) {
-        navigate("/login");
+        navigate("/");
       } else {
         setErrorMsg(response.data.message || "Submission failed. Try again.");
       }

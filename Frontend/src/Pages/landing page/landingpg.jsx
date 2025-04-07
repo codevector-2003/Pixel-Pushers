@@ -8,7 +8,7 @@ import axios from "axios"; // Make sure to install this via `npm install axios`
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const [username , setUsername] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
@@ -26,10 +26,10 @@ const LoginPage = () => {
                     },
                 }
             );
-    
+
             const token = response.data.access_token;
             localStorage.setItem("token", token);
-            navigate("/"); // Redirect on success
+            navigate("/dashboard"); // Redirect on success
         } catch (err) {
             setError("Invalid username or password");
             console.error(err);
