@@ -5,19 +5,28 @@ import Navbar from '../../Components/Navbar.jsx';
 import searchimg from '../growthpage/growthpageimg/search.png';
 import bellimg from '../growthpage/growthpageimg/bell1.png';
 import axios from "axios";
+import { useParams } from "react-router-dom";
+
 
 const Vaccine = () => {
   const [vaccines, setVaccines] = useState([]);
-  const babyId = "your_baby_id_here"; // Replace with actual ID or route param
-  const token = "your_auth_token_here"; // Replace with your auth method
+  const { babyId } = useParams(); 
+  
+  const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("Access Token not found. Please try again.");
+          return;
+        }
 
   useEffect(() => {
     const fetchVaccines = async () => {
       try {
-        const response = await axios.get(`/babies/${babyId}/vaccines/`, {
+
+        const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/vaccines/`, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
         });
         setVaccines(response.data);
       } catch (err) {
@@ -39,14 +48,14 @@ const Vaccine = () => {
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       console.log("Vaccine response:", response.data);
       // Update state with newly marked vaccine
-      setVaccines(prev =>
-        prev.map(v =>
+      setVaccines((prev) =>
+        prev.map((v) =>
           v.id === vaccineId ? { ...v, given: true, given_date: today } : v
         )
       );
