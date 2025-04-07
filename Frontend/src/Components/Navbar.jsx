@@ -15,7 +15,7 @@ const Navbar = () => {
                 <img src={logo} alt="Logo" className="logo" />
             </div>
 
-            <div className="chat-button" onClick={() => navigate('/growthpage')}>
+            <div className="chat-button" onClick={() => navigate('/chatbot')}>
                 <img src={chaticon} alt="Chat Icon" className="chat-icon" />
             </div>
             <div className="doc-button" onClick={() => navigate('/vaccine')} >
