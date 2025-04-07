@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 
 const Record = () => {
-  const { baby_id } = localStorage.getItem("baby_id"); // Get baby_id from route param
+  const baby_id  = localStorage.getItem("baby_id"); // Get baby_id from route param
   const token = localStorage.getItem("token");
 
   const [milestones, setMilestones] = useState([]);
@@ -31,6 +31,7 @@ const Record = () => {
       const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/milestones/`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
       setMilestones(response.data);
@@ -41,15 +42,16 @@ const Record = () => {
 
   const submitMilestone = async () => {
     const payload = {
+      description,
       category: selectedCategory,
       date,
-      description,
     };
 
     try {
       const response = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/milestones/`, payload, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
 

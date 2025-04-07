@@ -44,10 +44,9 @@ class MilestoneCategory(str, Enum):
 
 
 class MilestoneBase(BaseModel):
-    name: str
+    description: str
     date: date
     category: MilestoneCategory
-    notes: Optional[str] = None
 
 class MilestoneCreate(MilestoneBase):
     pass

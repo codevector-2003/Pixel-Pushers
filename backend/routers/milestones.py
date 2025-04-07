@@ -54,58 +54,10 @@ async def read_milestones(
         skip=skip,
         limit=limit
     ))
-    return [Milestone(**m) for m in milestones]
-@router.get("/babies/{baby_id}/milestones/emotional", response_model=List[Milestone])
-async def read_emotional_milestones(
-    baby_id: str,
-    current_user: dict = Depends(get_current_active_user)
-):
-    verify_baby_ownership(baby_id, str(current_user["_id"]))
-    
-    milestones = list(milestone_collection.find({
-        "baby_id": baby_id,
-        "category": MilestoneCategory.EMOTIONAL.value
-    }))
-    return [Milestone(**m) for m in milestones]
 
-@router.get("/babies/{baby_id}/milestones/cognitive", response_model=List[Milestone])
-async def read_cognitive_milestones(
-    baby_id: str,
-    current_user: dict = Depends(get_current_active_user)
-):
-    verify_baby_ownership(baby_id, str(current_user["_id"]))
-    
-    milestones = list(milestone_collection.find({
-        "baby_id": baby_id,
-        "category": MilestoneCategory.COGNITIVE.value
-    }))
-    return [Milestone(**m) for m in milestones]
-
-@router.get("/babies/{baby_id}/milestones/movement", response_model=List[Milestone])
-async def read_movement_milestones(
-    baby_id: str,
-    current_user: dict = Depends(get_current_active_user)
-):
-    verify_baby_ownership(baby_id, str(current_user["_id"]))
-    
-    milestones = list(milestone_collection.find({
-        "baby_id": baby_id,
-        "category": MilestoneCategory.MOVEMENT.value
-    }))
-    return [Milestone(**m) for m in milestones]
-
-@router.get("/babies/{baby_id}/milestones/language", response_model=List[Milestone])
-async def read_language_milestones(
-    baby_id: str,
-    current_user: dict = Depends(get_current_active_user)
-):
-    verify_baby_ownership(baby_id, str(current_user["_id"]))
-    
-    milestones = list(milestone_collection.find({
-        "baby_id": baby_id,
-        "category": MilestoneCategory.LANGUAGE.value
-    }))
-    return [Milestone(**m) for m in milestones]
+    for milestone in milestones:
+        milestone["_id"] = str(milestone["_id"])
+    return milestones
 
 @router.put("/babies/{baby_id}/milestones/{milestone_id}")
 async def update_milestone(
