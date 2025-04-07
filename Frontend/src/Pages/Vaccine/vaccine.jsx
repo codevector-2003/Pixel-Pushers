@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 const Vaccine = () => {
   const [vaccines, setVaccines] = useState([]);
-  const baby_id = "67f3c3b572098f837bef3114";
+  const { baby_id } = useParams(); // Get the baby_id from the URL parameters
 
   const token = localStorage.getItem("token");
         if (!token) {
