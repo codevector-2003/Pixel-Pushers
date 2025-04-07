@@ -1,0 +1,77 @@
+   <div className="record-container">
+      <title>Milestones</title>
+      <Navbar />
+      <div className="top-bar">
+
+      </div>
+
+      <div className="milestones-wrapper">
+        {/* LEFT: Do not change */}
+        <div className="left-container">
+          <div className="records-header">
+            <h3>Records</h3>
+            <img src="/images/pencil.png" alt="Edit Icon" className="edit-icon" />
+          </div>
+          <table className="records-table">
+            <thead>
+              <tr>
+                <th>MILESTONES</th>
+                <th>DATE</th>
+                <th>CATEGORY</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Lifts head briefly</td><td>88/88/8888</td><td>Emotional</td></tr>
+              <tr><td>Smiles socially</td><td>88/88/8888</td><td>Cognitive</td></tr>
+              <tr><td>Crawls</td><td>88/88/8888</td><td>Movement</td></tr>
+              <tr><td>Babbles sounds</td><td>88/88/8888</td><td>Language</td></tr>
+              <tr><td>Sits unsupported</td><td>88/88/8888</td><td>Language</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* RIGHT SIDE: Individually placed containers, no wrapper */}
+        <div className="right-side">
+          <div className="add-new-section">
+            <h4>Add New</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div className="category-grid">
+              <div className="category-box">
+                <img src="/images/emotional.png" alt="Emotional" />
+                <span>Emotional</span>
+              </div>
+              <div className="category-box">
+                <img src="/images/language.png" alt="Language" />
+                <span>Language</span>
+              </div>
+              <div className="category-box">
+                <img src="/images/cognitive.png" alt="Cognitive" />
+                <span>Cognitive</span>
+              </div>
+              <div className="category-box">
+                <img src="/images/movement.png" alt="Movement" />
+                <span>Movement</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="doctors-note-section">
+            <div className="note-header">
+              <h5>Doctor’s Notes</h5>
+              <img src="/images/headphone.png" alt="Headphones Icon" className="note-icon" />
+            </div>
+            <blockquote>
+              <strong>“Might have ADHD”</strong>
+              <p>
+                Since child consistently shows delayed attention span,
+                impulsivity, hyperactivity, speech delays, difficulty following
+                instructions, and trouble with emotional regulation, he may be
+                at risk for ADHD.
+              </p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
