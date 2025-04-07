@@ -6,6 +6,20 @@ import searchimg from '../growthpage/growthpageimg/search.png';
 import bellimg from '../growthpage/growthpageimg/bell1.png';
 
 const Vaccine = () => {
+  
+  name
+  standard_date
+  notes
+  given: bool
+  given_date
+  
+  
+  
+  
+  
+  
+  
+  
   return (
     <div className="vaccine-container" style={{ '--bg-image': `url(${bgimg})` }} >
       <title>Vaccine</title>
