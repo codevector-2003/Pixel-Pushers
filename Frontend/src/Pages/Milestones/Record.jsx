@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import "./Record.css";
 import Navbar from "../../Components/Navbar.jsx";
 import bgimg from '../Milestones/Milestoneimg/Frame26080346.png';
-import searchimg from '../growthpage/growthpageimg/search.png';
-import bellimg from '../growthpage/growthpageimg/bell1.png';
 import {
   FaSmile,
   FaLanguage,
@@ -15,12 +14,56 @@ import {
   FaPaperPlane,
   FaTimes
 } from "react-icons/fa";
+import axios from "axios";
 
 const Record = () => {
+  const { baby_id } = localStorage.getItem("baby_id"); // Get baby_id from route param
+  const token = localStorage.getItem("token");
+
+  const [milestones, setMilestones] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
+
+  const fetchMilestones = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/milestones/`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      setMilestones(response.data);
+    } catch (err) {
+      console.error("Error fetching milestones:", err);
+    }
+  };
+
+  const submitMilestone = async () => {
+    const payload = {
+      category: selectedCategory,
+      date,
+      description,
+    };
+
+    try {
+      const response = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/milestones/`, payload, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+
+      console.log("Milestone added:", response.data);
+      fetchMilestones(); // Refresh list
+      closeModal();
+    } catch (err) {
+      console.error("Error submitting milestone:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMilestones();
+  }, [baby_id]);
 
   const openModal = (category) => {
     setSelectedCategory(category);
@@ -33,21 +76,6 @@ const Record = () => {
     setDescription('');
   };
 
-  const handleSubmit = () => {
-    const payload = {
-      category: selectedCategory,
-      date,
-      description,
-    };
-    console.log("Submitting:", payload);
-    // TODO: POST to backend
-    closeModal();
-  };
-
-
-
-
-  
   return (
     <div className="record-container" style={{ '--bg-image': `url(${bgimg})` }}>
       <div className="navbar">
@@ -80,11 +108,13 @@ const Record = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Lifts head briefly</td><td>88/88/8888</td><td>Emotional</td></tr>
-                <tr><td>Smiles socially</td><td>88/88/8888</td><td>Cognitive</td></tr>
-                <tr><td>Crawls</td><td>88/88/8888</td><td>Movement</td></tr>
-                <tr><td>Babbles sounds</td><td>88/88/8888</td><td>Language</td></tr>
-                <tr><td>Sits unsupported</td><td>88/88/8888</td><td>Language</td></tr>
+                {milestones.map((milestone) => (
+                  <tr key={milestone.id}>
+                    <td>{milestone.description}</td>
+                    <td>{milestone.date}</td>
+                    <td>{milestone.category}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -145,7 +175,7 @@ const Record = () => {
               rows="4"
             />
             <div className="modal-actions">
-              <button onClick={handleSubmit}>
+              <button onClick={submitMilestone}>
                 <FaPaperPlane /> Submit
               </button>
               <button onClick={closeModal}>
