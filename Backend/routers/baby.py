@@ -49,6 +49,8 @@ async def read_babies(
         skip=skip,
         limit=limit
     ))
+    for baby in babies:
+        baby["_id"] = str(baby["_id"])
     return [Baby(**baby) for baby in babies]
 
 @router.get("/babies/{baby_id}", response_model=Baby)
