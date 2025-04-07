@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 const Vaccine = () => {
   const [vaccines, setVaccines] = useState([]);
-  const { babyId } = useParams(); 
+  const { baby_id } = useParams(); 
   
   const token = localStorage.getItem("token");
         if (!token) {
@@ -35,7 +35,7 @@ const Vaccine = () => {
     };
 
     fetchVaccines();
-  }, [babyId]);
+  }, [baby_id]);
 
   const handleCheckboxChange = async (vaccineId, currentStatus) => {
     if (currentStatus) return; // Already given, do nothing
@@ -44,7 +44,7 @@ const Vaccine = () => {
 
     try {
       const response = await axios.put(
-        `/babies/${babyId}/vaccines/${vaccineId}/mark?given_date=${today}`,
+        `/babies/${baby_id}/vaccines/${vaccineId}/mark?given_date=${today}`,
         {},
         {
           headers: {
