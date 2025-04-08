@@ -14,7 +14,7 @@ const Chatbot = () => {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const response = await axios.get("http://127.0.0.1:8078/doctor/chat/", {
+                const response = await axios.get("http://52.140.41.112:80/doctor/chat/", {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }
@@ -30,15 +30,15 @@ const Chatbot = () => {
 
     const handleSend = async () => {
         if (!input.trim()) return;
-        
+
         const userMessage = { text: input, sender: "user" };
         setMessages(prev => [...prev, userMessage]);
         setInput("");
 
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8078/doctor/chat/", 
-                { text: input }, 
+                "http://52.140.41.112:80/doctor/chat/",
+                { text: input },
                 {
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -48,15 +48,15 @@ const Chatbot = () => {
             );
 
 
-            const doctorMessage = { 
-                text: response.data.doctor_reply, 
-                sender: "doctor" 
+            const doctorMessage = {
+                text: response.data.doctor_reply,
+                sender: "doctor"
             };
             setMessages(prev => [...prev, doctorMessage]);
-            
+
         } catch (error) {
             console.error("Error sending message:", error);
-            
+
         }
     };
 

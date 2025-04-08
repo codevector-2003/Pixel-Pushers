@@ -11,7 +11,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     return (
         <div className="navbox">
-            <div className="profile2" onClick={() => navigate('/login')}>
+            <div className="profile2" onClick={() => navigate('/')}>
                 <img src={logo} alt="Logo" className="logo" />
             </div>
 

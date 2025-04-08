@@ -17,32 +17,32 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    
+
     try {
-      const response = await axios.post("http://127.0.0.1:8078/signup", {
+      const response = await axios.post("http://52.140.41.112:80/signup", {
         email,
         full_name,
         username,
         password,
       },
-      {
-        headers: {
+        {
+          headers: {
             "Content-Type": "application/json",
-        },
-      });
+          },
+        });
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
 
-    }
+      }
 
 
 
       console.log("Signup successful:", response.data);
-      navigate("/signupnext"); 
-      
+      navigate("/signupnext");
+
     } catch (error) {
       console.error("Signup error:", error);
-      
+
       if (error.response) {
         setErrorMsg(error.response.data.detail || "Signup failed. Try again.");
       } else if (error.request) {

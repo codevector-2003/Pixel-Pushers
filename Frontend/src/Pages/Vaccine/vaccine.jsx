@@ -9,17 +9,17 @@ import axios from "axios";
 const Vaccine = () => {
   const [vaccines, setVaccines] = useState([]);
   const baby_id = localStorage.getItem("baby_id");
-        
+
   const token = localStorage.getItem("token");
-        if (!token) {
-          console.error("Access Token not found. Please try again.");
-          return;
-        }
-  
+  if (!token) {
+    console.error("Access Token not found. Please try again.");
+    return;
+  }
+
   const fetchVaccines = async () => {
     try {
-      
-      const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/vaccines/`, {
+
+      const response = await axios.get(`http://52.140.41.112:80/babies/${baby_id}/vaccines/`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
@@ -30,12 +30,12 @@ const Vaccine = () => {
       console.error("Error fetching vaccines:", err);
     }
   };
-  
+
   useEffect(() => {
     const fetchVaccines = async () => {
       try {
 
-        const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/vaccines/`, {
+        const response = await axios.get(`http://52.140.41.112:80/babies/${baby_id}/vaccines/`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
