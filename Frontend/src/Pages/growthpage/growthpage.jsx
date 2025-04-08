@@ -73,8 +73,12 @@ const Growthpage = () => {
 
     const fetchWeightRecords = async () => {
         try {
-            const res = await axios.get('/api/weights', {
-                headers: { Authorization: `Bearer ${token}` }
+            const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                }
             });
 
             const records = res.data.map(item => ({
@@ -84,7 +88,7 @@ const Growthpage = () => {
                 notes: item.notes
             }));
 
-            return records;
+            setWeightRecords(records);
         } catch (error) {
             console.error("Error fetching weight records:", error);
             return [];
@@ -93,9 +97,13 @@ const Growthpage = () => {
 
     const fetchHeightRecords = async () => {
         try {
-            const res = await axios.get('/api/heights', {
-                headers: { Authorization: `Bearer ${token}` }
+            const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                }
             });
+
 
             const records = res.data.map(item => ({
                 id: item._id,
@@ -104,12 +112,14 @@ const Growthpage = () => {
                 notes: item.notes
             }));
 
-            return records;
+
+            setHeightRecords(records);
         } catch (error) {
             console.error("Error fetching height records:", error);
             return [];
         }
     };
+
 
 
     useEffect(() => {
