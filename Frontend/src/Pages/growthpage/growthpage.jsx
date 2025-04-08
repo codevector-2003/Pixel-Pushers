@@ -25,7 +25,6 @@ import {
 } from "recharts";
 
 
-const token = localStorage.getItem("token");
 
 const fetchWeightData = async () => {
     return [
@@ -65,16 +64,24 @@ const Growthpage = () => {
         notes: ''
     });
 
+    const baby_id = localStorage.getItem("baby_id");
+    const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("Access Token not found. Please try again.");
+          return;
+        }
 
     const fetchWeightRecords = async () => {
         try {
-            const res = await axios.get('/api/weights', {
-                headers: { Authorization: `Bearer ${token}` }
+            const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
+
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`, 
+                }
             });
 
-            // Convert response to match table format
-            const records = res.data.map(item => ({
-                id: item._id,
+            const records = response.data.map(item => ({
                 date: new Date(item.date).toLocaleDateString(),
                 weight: `${item.weight} KG`,
                 notes: item.notes
@@ -88,12 +95,14 @@ const Growthpage = () => {
 
     const fetchHeightRecords = async () => {
         try {
-            const res = await axios.get('/api/heights', {
-                headers: { Authorization: `Bearer ${token}` }
+            const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`, 
+                }
             });
 
-            const records = res.data.map(item => ({
-                id: item._id,
+            const records = response.data.map(item => ({
                 date: new Date(item.date).toLocaleDateString(),
                 height: `${item.height} cm`,
                 notes: item.notes
@@ -132,13 +141,19 @@ const Growthpage = () => {
         };
 
         if (recordType === 'height') {
-            const res = await axios.post('/api/heights', record, {
-                headers: { Authorization: `Bearer ${token}` }
+            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, record, {
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`, 
+                }
             });
             setHeightRecords([...heightRecords, { id: res.data._id, ...record, height: `${record.value} cm` }]);
         } else if (recordType === 'weight') {
-            const res = await axios.post('/api/weights', record, {
-                headers: { Authorization: `Bearer ${token}` }
+            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, record, {
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`, 
+                }
             });
             setWeightRecords([...weightRecords, { id: res.data._id, ...record, weight: `${record.value} KG` }]);
         }
@@ -148,10 +163,13 @@ const Growthpage = () => {
     };
 
 
-    const handleDelete = async (type, id) => {
-        const endpoint = type === 'height' ? `/api/heights/${id}` : `/api/weights/${id}`;
+    const handleDelete = async (type, baby_id) => {
+        const endpoint = type === 'height' ? `http://127.0.0.1:8078/babies/${baby_id}/height/` : `http://127.0.0.1:8078/babies/${baby_id}/weight/`;
         await axios.delete(endpoint, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`, 
+            }
         });
 
         if (type === 'height') {
