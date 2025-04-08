@@ -78,22 +78,23 @@ const Growthpage = () => {
 
     const fetchWeightRecords = async () => {
         try {
-            const res = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
+            const res1 = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
 
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
                 }
             });
-
-            const record1 = res.data.map(item => ({
+            console.log(res1.data);
+            const record1 = res1.data.map(item => ({
                 id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
                 weight: `${item.weight} KG`,
                 notes: item.notes
             }));
-
+            console.log(record1);
             setWeightRecords(record1);
+            
         } catch (error) {
             console.error("Error fetching weight records:", error);
             return [];
@@ -102,22 +103,20 @@ const Growthpage = () => {
 
     const fetchHeightRecords = async () => {
         try {
-            const res = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+            const res2 = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
                 }
             });
-
-
-            const record2 = res.data.map(item => ({
+            //console.log(res2.data);
+            const record2 = res2.data.map(item => ({
                 id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
                 height: `${item.height} cm`,
                 notes: item.notes
             }));
-
-
+            console.log(record2);
             setHeightRecords(record2);
         } catch (error) {
             console.error("Error fetching height records:", error);
@@ -135,8 +134,7 @@ const Growthpage = () => {
             const heightRecs = await fetchHeightRecords();
             setWeightData(weight);
             setHeightData(height);
-            setWeightRecords(weightRecs);
-            setHeightRecords(heightRecs);
+
         };
         loadData();
     }, []);
