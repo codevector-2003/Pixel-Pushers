@@ -74,13 +74,13 @@ const fetchHeightData = async () => {
 const fetchVaccineData = async () => {
     return {
         nextVaccineIn: 17,
-        nextVaccineName: "vaC01",
+        nextVaccineName: "Rota-1",
         vaccines: [
-            { name: "Vac 1", age: "2 months", taken: false },
-            { name: "CavVine 1.5", age: "2 months", taken: true },
-            { name: "Vaccine 0", age: "1 month", taken: true },
-            { name: "Vaccine 0", age: "1 month", taken: true },
-            { name: "cCine 2", age: "3 months", taken: false, missed: true }
+            { name: "BCG", age: "24 hours", taken: true },
+            { name: "OPV-0", age: "2 weeks", taken: true },
+            { name: "Pentavalent 1", age: "6 weeks", taken: true },
+            { name: "Rota-1", age: "2 month", taken: false  },
+            { name: "cCine 2", age: "3 months", taken: false }
         ]
     };
 };
