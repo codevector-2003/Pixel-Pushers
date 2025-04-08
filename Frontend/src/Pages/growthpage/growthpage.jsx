@@ -66,22 +66,23 @@ const Growthpage = () => {
 
     const baby_id = localStorage.getItem("baby_id");
     const token = localStorage.getItem("token");
-        if (!token) {
-          console.error("Access Token not found. Please try again.");
-          return;
-        }
+    if (!token) {
+        console.error("Access Token not found. Please try again.");
+        return;
+    }
 
     const fetchWeightRecords = async () => {
         try {
             const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
 
-                headers: { 
+                headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`, 
+                    "Authorization": `Bearer ${token}`,
                 }
             });
 
-            const records = response.data.map(item => ({
+            const records = res.data.map(item => ({
+                id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
                 weight: `${item.weight} KG`,
                 notes: item.notes
@@ -96,17 +97,20 @@ const Growthpage = () => {
     const fetchHeightRecords = async () => {
         try {
             const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
-                headers: { 
+                headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`, 
+                    "Authorization": `Bearer ${token}`,
                 }
             });
 
-            const records = response.data.map(item => ({
+
+            const records = res.data.map(item => ({
+                id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
                 height: `${item.height} cm`,
                 notes: item.notes
             }));
+
 
             setHeightRecords(records);
         } catch (error) {
@@ -142,17 +146,17 @@ const Growthpage = () => {
 
         if (recordType === 'height') {
             const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, record, {
-                headers: { 
+                headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`, 
+                    "Authorization": `Bearer ${token}`,
                 }
             });
             setHeightRecords([...heightRecords, { id: res.data._id, ...record, height: `${record.value} cm` }]);
         } else if (recordType === 'weight') {
             const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, record, {
-                headers: { 
+                headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`, 
+                    "Authorization": `Bearer ${token}`,
                 }
             });
             setWeightRecords([...weightRecords, { id: res.data._id, ...record, weight: `${record.value} KG` }]);
@@ -166,9 +170,9 @@ const Growthpage = () => {
     const handleDelete = async (type, baby_id) => {
         const endpoint = type === 'height' ? `http://127.0.0.1:8078/babies/${baby_id}/height/` : `http://127.0.0.1:8078/babies/${baby_id}/weight/`;
         await axios.delete(endpoint, {
-            headers: { 
+            headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`, 
+                "Authorization": `Bearer ${token}`,
             }
         });
 
