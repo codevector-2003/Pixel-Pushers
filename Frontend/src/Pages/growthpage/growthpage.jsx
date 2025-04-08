@@ -64,6 +64,11 @@ const Growthpage = () => {
         notes: ''
     });
 
+    const openModal = (type) => {
+        setRecordType(type);
+        setShowModal(true);
+    };
+
     const baby_id = localStorage.getItem("baby_id");
     const token = localStorage.getItem("token");
     if (!token) {
@@ -130,8 +135,8 @@ const Growthpage = () => {
             const heightRecs = await fetchHeightRecords();
             setWeightData(weight);
             setHeightData(height);
-            setWeightRecords(weightRecs);
-            setHeightRecords(heightRecs);
+            setWeightRecords();
+            setHeightRecords();
         };
         loadData();
     }, []);
@@ -246,7 +251,7 @@ const Growthpage = () => {
                                             updated[index].notes = e.target.value;
                                             setHeightRecords(updated);
                                         }} /></td>
-                                        <td><button onClick={() => handleDelete('height', record._id)}>Delete</button></td>
+                                        <td><button onClick={() => handleDelete('height', record.id)}>Delete</button></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -292,7 +297,7 @@ const Growthpage = () => {
                                             updated[index].notes = e.target.value;
                                             setWeightRecords(updated);
                                         }} /></td>
-                                        <td><button onClick={() => handleDelete('height', record._id)}>Delete</button></td>
+                                        <td><button onClick={() => handleDelete('height', record.id)}>Delete</button></td>
                                     </tr>
                                 ))}
                             </tbody>
