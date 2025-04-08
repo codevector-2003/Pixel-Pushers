@@ -15,7 +15,7 @@ const LoginPage = () => {
     const handleLogin = async () => {
         try {
             const response = await axios.post(
-                "http://52.140.41.112:80/token",
+                "http://52.140.41.112:8080/token",
                 new URLSearchParams({
                     username: username,
                     password: password,
