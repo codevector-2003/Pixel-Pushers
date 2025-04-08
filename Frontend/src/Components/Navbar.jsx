@@ -21,7 +21,7 @@ const Navbar = () => {
             <div className="doc-button" onClick={() => navigate('/vaccine')} >
                 <img src={docicon} alt="Document Icon" className="doc-icon" />
             </div>
-            <div className="home-button" onClick={() => navigate('/')}>
+            <div className="home-button" onClick={() => navigate('/dashboard')}>
                 <img src={homeicon} alt="Home Icon" className="home-icon" />
             </div>
             <div className="settings-button">

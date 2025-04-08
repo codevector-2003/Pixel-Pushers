@@ -19,7 +19,7 @@ const Vaccine = () => {
   const fetchVaccines = async () => {
     try {
       
-      const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/vaccines/`, {
+      const response = await axios.get(`http://52.140.41.112:80/babies/${baby_id}/vaccines/`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
