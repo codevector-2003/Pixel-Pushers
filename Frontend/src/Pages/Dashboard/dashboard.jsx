@@ -400,7 +400,7 @@ const Dashboard = () => {
                         <div className="profile-icon">
                             <img src={babyimg} alt="profile" />
                         </div>
-                        <p>Jhone Doe</p>
+                        <p>Jone Doe</p>
 
                     </div>
 
