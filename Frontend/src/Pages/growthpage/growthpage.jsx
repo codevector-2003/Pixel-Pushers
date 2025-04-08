@@ -73,7 +73,7 @@ const Growthpage = () => {
 
     const fetchWeightRecords = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
+            const res = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
 
                 headers: {
                     "Content-Type": "application/json",
@@ -96,13 +96,12 @@ const Growthpage = () => {
 
     const fetchHeightRecords = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+            const res = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
                 }
             });
-
 
             const records = res.data.map(item => ({
                 id: item._id,
@@ -112,7 +111,9 @@ const Growthpage = () => {
             }));
 
 
-            setHeightRecords(records);
+            setHeightRecords(records);res
+
+
         } catch (error) {
             console.error("Error fetching height records:", error);
         }
