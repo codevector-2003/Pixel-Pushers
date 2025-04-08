@@ -60,7 +60,8 @@ const fetchDietData = async () => {
         breakdown: {
             milk: 60,
             cereal: 70,
-            biscuit: 50
+            biscuit: 50,
+            Fruits: 30
         }
     };
 };
@@ -79,7 +80,7 @@ const fetchVaccineData = async () => {
             { name: "BCG", age: "24 hours", taken: true },
             { name: "OPV-0", age: "2 weeks", taken: true },
             { name: "Pentavalent 1", age: "6 weeks", taken: true },
-            { name: "Rota-1", age: "2 month", taken: false  },
+            { name: "Rota-1", age: "2 month", taken: false },
             { name: "cCine 2", age: "3 months", taken: false }
         ]
     };
@@ -91,9 +92,9 @@ const fetchMilestones = async () => {
         items: [
             { title: "Smiles", age: "2 months" },
             { title: "Said “Momma”", age: "3 months" },
-            { title: "Said “Momma”", age: "3 months" },
+            { title: "Said “Pappa”", age: "3 months" },
             { title: "Hehe lol", age: "1 month" },
-            { title: "Goo goo ga", age: "3 months" },
+            { title: "Hi-Fi", age: "3 months" },
             { title: "Yawns", age: "2 months" }
         ]
     };
@@ -399,7 +400,7 @@ const Dashboard = () => {
                         <div className="profile-icon">
                             <img src={babyimg} alt="profile" />
                         </div>
-                        <p>Himath Baba</p>
+                        <p>Jhone Doe</p>
 
                     </div>
 
