@@ -38,7 +38,7 @@ class PyObjectId(str):
 
 class HeightRecordBase(BaseModel):
     date: date
-    height: float = 0
+    height: float
     notes: Optional[str] = None
 
 class HeightRecordCreate(HeightRecordBase):

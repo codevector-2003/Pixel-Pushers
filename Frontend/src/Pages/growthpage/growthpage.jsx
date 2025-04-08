@@ -25,7 +25,6 @@ import {
 } from "recharts";
 
 
-
 const fetchWeightData = async () => {
     return [
         { age: 1, weight: 4, lower: 3, upper: 5 },
@@ -47,8 +46,6 @@ const fetchHeightData = async () => {
         { age: 30, height: 175, lower: 173, upper: 177 },
     ];
 }
-
-
 
 
 const Growthpage = () => {
@@ -85,14 +82,12 @@ const Growthpage = () => {
                     "Authorization": `Bearer ${token}`,
                 }
             });
-            console.log(res1.data);
             const record1 = res1.data.map(item => ({
                 id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
                 weight: `${item.weight} KG`,
                 notes: item.notes
             }));
-            console.log(record1);
             setWeightRecords(record1);
             
         } catch (error) {
@@ -109,14 +104,12 @@ const Growthpage = () => {
                     "Authorization": `Bearer ${token}`,
                 }
             });
-            //console.log(res2.data);
             const record2 = res2.data.map(item => ({
                 id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
                 height: `${item.height} cm`,
                 notes: item.notes
             }));
-            console.log(record2);
             setHeightRecords(record2);
         } catch (error) {
             console.error("Error fetching height records:", error);
@@ -140,31 +133,61 @@ const Growthpage = () => {
     }, []);
 
     const handleAddRecord = async () => {
-        const id = Date.now();
         const formattedDate = newRecord.date.toLocaleDateString();
-
-        const record = {
-            date: formattedDate,
-            value: newRecord.value,
-            notes: newRecord.notes
-        };
-
+        const newformattedDate = newRecord.date.toISOString().split('T')[0];
+        const value = parseFloat(newRecord.value); 
+        console.log(newRecord); 
+        //console.log(formattedDate);
+        console.log(value);
+    
         if (recordType === 'height') {
-            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, record, {
+            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+                date: newformattedDate,
+                height: value,
+                notes: newRecord.notes
+            }, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
                 }
             });
-            setHeightRecords([...heightRecords, { id: res.data._id, ...record, height: `${record.value} cm` }]);
+            setHeightRecords([...heightRecords, { id: res.data._id, date: formattedDate, height: `${newRecord.value} cm`, notes: newRecord.notes }]);
         } else if (recordType === 'weight') {
-            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, record, {
+            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
+                date: newformattedDate,
+                weight: value,
+                notes: newRecord.notes
+            }, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
                 }
             });
-            setWeightRecords([...weightRecords, { id: res.data._id, ...record, weight: `${record.value} KG` }]);
+            setWeightRecords([...weightRecords, { id: res.data._id, date: newformattedDate, weight: `${newRecord.value} KG`, notes: newRecord.notes }]);
+        } else if (recordType === 'height') {
+            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+                date: newformattedDate,
+                height: value,
+                notes: newRecord.notes
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                }
+            });
+            setWeightRecords([...weightRecords, { id: res.data._id, date: formattedDate, weight: `${newRecord.value} KG`, notes: newRecord.notes }]);
+        } else if (recordType === 'height') {
+            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+                date: newformattedDate,
+                height: value,
+                notes: newRecord.notes
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                }
+            });
+            setWeightRecords([...weightRecords, { id: res.data._id, date: newformattedDate, weight: `${newRecord.value} KG`, notes: newRecord.notes }]);
         }
 
         setShowModal(false);

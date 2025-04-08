@@ -38,7 +38,7 @@ class PyObjectId(str):
 
 class WeightRecordBase(BaseModel):
     date: date
-    weight: float = 0
+    weight: float
     notes: Optional[str] = None
 
 class WeightRecordCreate(WeightRecordBase):
