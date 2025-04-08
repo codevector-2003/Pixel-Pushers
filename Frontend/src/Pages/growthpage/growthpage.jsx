@@ -141,7 +141,7 @@ const Growthpage = () => {
         console.log(value);
 
         if (recordType === 'height') {
-            const res = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/height/`, {
+            const res = await axios.post(`http://52.140.41.112:8080/babies/${baby_id}/height/`, {
                 date: newformattedDate,
                 height: value,
                 notes: newRecord.notes
@@ -153,7 +153,7 @@ const Growthpage = () => {
             });
             setHeightRecords([...heightRecords, { id: res.data._id, date: formattedDate, height: `${newRecord.value} cm`, notes: newRecord.notes }]);
         } else if (recordType === 'weight') {
-            const res = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/weight/`, {
+            const res = await axios.post(`http://52.140.41.112:8080/babies/${baby_id}/weight/`, {
                 date: newformattedDate,
                 weight: value,
                 notes: newRecord.notes
@@ -165,7 +165,7 @@ const Growthpage = () => {
             });
             setWeightRecords([...weightRecords, { id: res.data._id, date: newformattedDate, weight: `${newRecord.value} KG`, notes: newRecord.notes }]);
         } else if (recordType === 'height') {
-            const res = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/height/`, {
+            const res = await axios.post(`http://52.140.41.112:8080/babies/${baby_id}/height/`, {
                 date: newformattedDate,
                 height: value,
                 notes: newRecord.notes
@@ -177,7 +177,7 @@ const Growthpage = () => {
             });
             setWeightRecords([...weightRecords, { id: res.data._id, date: formattedDate, weight: `${newRecord.value} KG`, notes: newRecord.notes }]);
         } else if (recordType === 'height') {
-            const res = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/height/`, {
+            const res = await axios.post(`http://52.140.41.112:8080/babies/${baby_id}/height/`, {
                 date: newformattedDate,
                 height: value,
                 notes: newRecord.notes
@@ -196,7 +196,7 @@ const Growthpage = () => {
 
 
     const handleDelete = async (type, baby_id) => {
-        const endpoint = type === 'height' ? `http://52.140.41.112:80/babies/${baby_id}/height/` : `http://52.140.41.112:80/babies/${baby_id}/weight/`;
+        const endpoint = type === 'height' ? `http://52.140.41.112:8080/babies/${baby_id}/height/` : `http://52.140.41.112:8080/babies/${baby_id}/weight/`;
         await axios.delete(endpoint, {
             headers: {
                 "Content-Type": "application/json",

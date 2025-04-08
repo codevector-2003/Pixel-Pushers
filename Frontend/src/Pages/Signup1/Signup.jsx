@@ -19,7 +19,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://52.140.41.112:80/signup", {
+      const response = await axios.post("http://52.140.41.112:8080/signup", {
         email,
         full_name,
         username,

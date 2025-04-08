@@ -28,7 +28,7 @@ const Record = () => {
 
   const fetchMilestones = async () => {
     try {
-      const response = await axios.get(`http://52.140.41.112:80/babies/${baby_id}/milestones/`, {
+      const response = await axios.get(`http://52.140.41.112:8080/babies/${baby_id}/milestones/`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const Record = () => {
     };
 
     try {
-      const response = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/milestones/`, payload, {
+      const response = await axios.post(`http://52.140.41.112:8080/babies/${baby_id}/milestones/`, payload, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",

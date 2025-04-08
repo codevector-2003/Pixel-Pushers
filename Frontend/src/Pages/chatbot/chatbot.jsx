@@ -14,7 +14,7 @@ const Chatbot = () => {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const response = await axios.get("http://52.140.41.112:80/doctor/chat/", {
+                const response = await axios.get("http://52.140.41.112:8080/doctor/chat/", {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }
@@ -37,7 +37,7 @@ const Chatbot = () => {
 
         try {
             const response = await axios.post(
-                "http://52.140.41.112:80/doctor/chat/",
+                "http://52.140.41.112:8080/doctor/chat/",
                 { text: input },
                 {
                     headers: {
