@@ -90,12 +90,12 @@ const fetchMilestones = async () => {
     return {
         status: "Late bloomer",
         items: [
-            { title: "Smiles", age: "2 months" },
-            { title: "Said “Momma”", age: "3 months" },
-            { title: "Said “Pappa”", age: "3 months" },
-            { title: "Hehe lol", age: "1 month" },
-            { title: "Hi-Fi", age: "3 months" },
-            { title: "Yawns", age: "2 months" }
+            { title: "Recognize Mother's voice", age: "1 week" },
+            { title: "Use arms actively”", age: "2 weeks" },
+            { title: "Follow objecs with eyes", age: "3 weeks" },
+            { title: "Turn Head towards sound", age: "1 month" },
+            { title: "Social smiling begins", age: "2 months" },
+            { title: "Hold head up steadily", age: "3 months" }
         ]
     };
 };
@@ -400,7 +400,7 @@ const Dashboard = () => {
                         <div className="profile-icon">
                             <img src={babyimg} alt="profile" />
                         </div>
-                        <p>Jhone Doe</p>
+                        <p>Jone Doe</p>
 
                     </div>
 
