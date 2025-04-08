@@ -88,7 +88,7 @@ const Growthpage = () => {
                 notes: item.notes
             }));
 
-            return records;
+            setWeightRecords(records);
         } catch (error) {
             console.error("Error fetching weight records:", error);
             return [];
@@ -104,6 +104,7 @@ const Growthpage = () => {
                 }
             });
 
+
             const records = res.data.map(item => ({
                 id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
@@ -111,12 +112,14 @@ const Growthpage = () => {
                 notes: item.notes
             }));
 
-            return records;
+
+            setHeightRecords(records);
         } catch (error) {
             console.error("Error fetching height records:", error);
             return [];
         }
     };
+
 
 
     useEffect(() => {
