@@ -86,14 +86,14 @@ const Growthpage = () => {
                 }
             });
 
-            const records = res.data.map(item => ({
+            const record1 = res.data.map(item => ({
                 id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
                 weight: `${item.weight} KG`,
                 notes: item.notes
             }));
 
-            setWeightRecords(records);
+            setWeightRecords(record1);
         } catch (error) {
             console.error("Error fetching weight records:", error);
             return [];
@@ -110,7 +110,7 @@ const Growthpage = () => {
             });
 
 
-            const records = res.data.map(item => ({
+            const record2 = res.data.map(item => ({
                 id: item._id,
                 date: new Date(item.date).toLocaleDateString(),
                 height: `${item.height} cm`,
@@ -118,7 +118,7 @@ const Growthpage = () => {
             }));
 
 
-            setHeightRecords(records);
+            setHeightRecords(record2);
         } catch (error) {
             console.error("Error fetching height records:", error);
             return [];
@@ -135,8 +135,8 @@ const Growthpage = () => {
             const heightRecs = await fetchHeightRecords();
             setWeightData(weight);
             setHeightData(height);
-            setWeightRecords();
-            setHeightRecords();
+            setWeightRecords(weightRecs);
+            setHeightRecords(heightRecs);
         };
         loadData();
     }, []);
@@ -234,24 +234,24 @@ const Growthpage = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {heightRecords.map((record, index) => (
-                                    <tr key={record.id}>
-                                        <td><input value={record.date} onChange={(e) => {
+                                {heightRecords.map((record2, index) => (
+                                    <tr key={record2.id}>
+                                        <td><input value={record2.date} onChange={(e) => {
                                             const updated = [...heightRecords];
                                             updated[index].date = e.target.value;
                                             setHeightRecords(updated);
                                         }} /></td>
-                                        <td><input value={record.height} onChange={(e) => {
+                                        <td><input value={record2.height} onChange={(e) => {
                                             const updated = [...heightRecords];
                                             updated[index].height = e.target.value;
                                             setHeightRecords(updated);
                                         }} /></td>
-                                        <td><input value={record.notes} onChange={(e) => {
+                                        <td><input value={record2.notes} onChange={(e) => {
                                             const updated = [...heightRecords];
                                             updated[index].notes = e.target.value;
                                             setHeightRecords(updated);
                                         }} /></td>
-                                        <td><button onClick={() => handleDelete('height', record.id)}>Delete</button></td>
+                                        <td><button onClick={() => handleDelete('height', record2.id)}>Delete</button></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -280,24 +280,24 @@ const Growthpage = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {weightRecords.map((record, index) => (
-                                    <tr key={record.id}>
-                                        <td><input value={record.date} onChange={(e) => {
+                                {weightRecords.map((record1, index) => (
+                                    <tr key={record1.id}>
+                                        <td><input value={record1.date} onChange={(e) => {
                                             const updated = [...weightRecords];
                                             updated[index].date = e.target.value;
                                             setWeightRecords(updated);
                                         }} /></td>
-                                        <td><input value={record.weight} onChange={(e) => {
+                                        <td><input value={record1.weight} onChange={(e) => {
                                             const updated = [...weightRecords];
                                             updated[index].weight = e.target.value;
                                             setWeightRecords(updated);
                                         }} /></td>
-                                        <td><input value={record.notes} onChange={(e) => {
+                                        <td><input value={record1.notes} onChange={(e) => {
                                             const updated = [...weightRecords];
                                             updated[index].notes = e.target.value;
                                             setWeightRecords(updated);
                                         }} /></td>
-                                        <td><button onClick={() => handleDelete('height', record.id)}>Delete</button></td>
+                                        <td><button onClick={() => handleDelete('height', record1.id)}>Delete</button></td>
                                     </tr>
                                 ))}
                             </tbody>
