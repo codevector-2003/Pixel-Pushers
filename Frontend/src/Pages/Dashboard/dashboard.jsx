@@ -77,11 +77,11 @@ const fetchVaccineData = async () => {
         nextVaccineIn: 17,
         nextVaccineName: "Rota-1",
         vaccines: [
-            { name: "BCG", age: "24 hours", taken: true },
-            { name: "OPV-0", age: "2 weeks", taken: true },
-            { name: "Pentavalent 1", age: "6 weeks", taken: true },
+            { name: "OPV-0", age: "24 hours", taken: true },
+            { name: "Pentavalent ", age: "2 weeks", taken: true },
+            { name: "OPV 1", age: "6 weeks", taken: true },
             { name: "Rota-1", age: "2 month", taken: false },
-            { name: "cCine 2", age: "3 months", taken: false }
+            { name: "Pentavalent 2", age: "3 months", taken: false }
         ]
     };
 };

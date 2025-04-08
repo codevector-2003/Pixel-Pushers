@@ -13,6 +13,7 @@ def get_doctor_reply(model, user_message: str) -> str:
     "{user_message}"
 
     Please provide a medically-informed and friendly response, especially for child care and baby nutrition.
+    Limit your response to 150 words.
     """
     response = model.generate_content(prompt)
     return response.text.strip()
