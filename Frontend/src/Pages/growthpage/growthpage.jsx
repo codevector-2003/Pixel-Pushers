@@ -75,7 +75,7 @@ const Growthpage = () => {
 
     const fetchWeightRecords = async () => {
         try {
-            const res1 = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
+            const res1 = await axios.get(`http://52.140.41.112:80/babies/${baby_id}/weight/`, {
 
                 headers: {
                     "Content-Type": "application/json",
@@ -89,7 +89,7 @@ const Growthpage = () => {
                 notes: item.notes
             }));
             setWeightRecords(record1);
-            
+
         } catch (error) {
             console.error("Error fetching weight records:", error);
             return [];
@@ -98,7 +98,7 @@ const Growthpage = () => {
 
     const fetchHeightRecords = async () => {
         try {
-            const res2 = await axios.get(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+            const res2 = await axios.get(`http://52.140.41.112:80/babies/${baby_id}/height/`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
@@ -135,13 +135,13 @@ const Growthpage = () => {
     const handleAddRecord = async () => {
         const formattedDate = newRecord.date.toLocaleDateString();
         const newformattedDate = newRecord.date.toISOString().split('T')[0];
-        const value = parseFloat(newRecord.value); 
-        console.log(newRecord); 
+        const value = parseFloat(newRecord.value);
+        console.log(newRecord);
         //console.log(formattedDate);
         console.log(value);
-    
+
         if (recordType === 'height') {
-            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+            const res = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/height/`, {
                 date: newformattedDate,
                 height: value,
                 notes: newRecord.notes
@@ -153,7 +153,7 @@ const Growthpage = () => {
             });
             setHeightRecords([...heightRecords, { id: res.data._id, date: formattedDate, height: `${newRecord.value} cm`, notes: newRecord.notes }]);
         } else if (recordType === 'weight') {
-            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/weight/`, {
+            const res = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/weight/`, {
                 date: newformattedDate,
                 weight: value,
                 notes: newRecord.notes
@@ -165,7 +165,7 @@ const Growthpage = () => {
             });
             setWeightRecords([...weightRecords, { id: res.data._id, date: newformattedDate, weight: `${newRecord.value} KG`, notes: newRecord.notes }]);
         } else if (recordType === 'height') {
-            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+            const res = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/height/`, {
                 date: newformattedDate,
                 height: value,
                 notes: newRecord.notes
@@ -177,7 +177,7 @@ const Growthpage = () => {
             });
             setWeightRecords([...weightRecords, { id: res.data._id, date: formattedDate, weight: `${newRecord.value} KG`, notes: newRecord.notes }]);
         } else if (recordType === 'height') {
-            const res = await axios.post(`http://127.0.0.1:8078/babies/${baby_id}/height/`, {
+            const res = await axios.post(`http://52.140.41.112:80/babies/${baby_id}/height/`, {
                 date: newformattedDate,
                 height: value,
                 notes: newRecord.notes
@@ -196,7 +196,7 @@ const Growthpage = () => {
 
 
     const handleDelete = async (type, baby_id) => {
-        const endpoint = type === 'height' ? `http://127.0.0.1:8078/babies/${baby_id}/height/` : `http://127.0.0.1:8078/babies/${baby_id}/weight/`;
+        const endpoint = type === 'height' ? `http://52.140.41.112:80/babies/${baby_id}/height/` : `http://52.140.41.112:80/babies/${baby_id}/weight/`;
         await axios.delete(endpoint, {
             headers: {
                 "Content-Type": "application/json",

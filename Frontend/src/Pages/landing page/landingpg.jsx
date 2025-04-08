@@ -15,7 +15,7 @@ const LoginPage = () => {
     const handleLogin = async () => {
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8078/token",
+                "http://52.140.41.112:80/token",
                 new URLSearchParams({
                     username: username,
                     password: password,
@@ -29,7 +29,7 @@ const LoginPage = () => {
 
             const token = response.data.access_token;
             localStorage.setItem("token", token);
-            
+
             if (response.data.baby_id) {
                 localStorage.setItem("baby_id", response.data.baby_id);
             }
