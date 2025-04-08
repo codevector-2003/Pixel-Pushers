@@ -88,9 +88,10 @@ const Growthpage = () => {
                 notes: item.notes
             }));
 
-            setWeightRecords(records);
+            return records;
         } catch (error) {
             console.error("Error fetching weight records:", error);
+            return [];
         }
     };
 
@@ -110,15 +111,12 @@ const Growthpage = () => {
                 notes: item.notes
             }));
 
-
-            setHeightRecords(records);res
-
-
+            return records;
         } catch (error) {
             console.error("Error fetching height records:", error);
+            return [];
         }
     };
-
 
 
     useEffect(() => {
