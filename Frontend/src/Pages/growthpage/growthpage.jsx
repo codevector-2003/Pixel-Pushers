@@ -5,6 +5,10 @@ import bgimage from './growthpageimg/Rectangle3467956.png';
 import searchimg from './growthpageimg/search.png';
 import bellimg from './growthpageimg/bell1.png';
 import Navbar from '../../Components/Navbar.jsx';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'
+import axios from 'axios';
+
 import {
     ResponsiveContainer,
     LineChart,
@@ -19,6 +23,9 @@ import {
     PieChart,
     Pie
 } from "recharts";
+
+
+const token = localStorage.getItem("token");
 
 const fetchWeightData = async () => {
     return [
@@ -42,31 +49,62 @@ const fetchHeightData = async () => {
     ];
 }
 
-const fetchWeightRecords = async () => {
-    return [
-        { id: 1, weight: '5.5 KG', date: '88/88/8888', notes: 'Chubby babe' },
-        { id: 2, weight: '5.2 KG', date: '88/88/8888', notes: 'Chubby babe' },
-        { id: 3, weight: '5.3 KG', date: '88/88/8888', notes: 'Chubby babe' },
 
-    ];
-};
-
-const fetchHeightRecords = async () => {
-    return [
-        { id: 1, height: '41 cm', date: '88/88/8888', notes: 'Tall boi damn' },
-        { id: 2, height: '39 cm', date: '88/88/8888', notes: 'Tall boi damn' },
-        { id: 3, height: '37 cm', date: '88/88/8888', notes: 'Tall boi damn' },
-    ];
-};
 
 
 const Growthpage = () => {
-
-
     const [weightData, setWeightData] = useState([]);
     const [heightData, setHeightData] = useState([]);
     const [weightRecords, setWeightRecords] = useState([]);
     const [heightRecords, setHeightRecords] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [recordType, setRecordType] = useState('');
+    const [newRecord, setNewRecord] = useState({
+        date: new Date(),
+        value: '',
+        notes: ''
+    });
+
+
+    const fetchWeightRecords = async () => {
+        try {
+            const res = await axios.get('/api/weights', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            // Convert response to match table format
+            const records = res.data.map(item => ({
+                id: item._id,
+                date: new Date(item.date).toLocaleDateString(),
+                weight: `${item.weight} KG`,
+                notes: item.notes
+            }));
+
+            setWeightRecords(records);
+        } catch (error) {
+            console.error("Error fetching weight records:", error);
+        }
+    };
+
+    const fetchHeightRecords = async () => {
+        try {
+            const res = await axios.get('/api/heights', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            const records = res.data.map(item => ({
+                id: item._id,
+                date: new Date(item.date).toLocaleDateString(),
+                height: `${item.height} cm`,
+                notes: item.notes
+            }));
+
+            setHeightRecords(records);
+        } catch (error) {
+            console.error("Error fetching height records:", error);
+        }
+    };
+
 
 
     useEffect(() => {
@@ -82,6 +120,47 @@ const Growthpage = () => {
         };
         loadData();
     }, []);
+
+    const handleAddRecord = async () => {
+        const id = Date.now();
+        const formattedDate = newRecord.date.toLocaleDateString();
+
+        const record = {
+            date: formattedDate,
+            value: newRecord.value,
+            notes: newRecord.notes
+        };
+
+        if (recordType === 'height') {
+            const res = await axios.post('/api/heights', record, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setHeightRecords([...heightRecords, { id: res.data._id, ...record, height: `${record.value} cm` }]);
+        } else if (recordType === 'weight') {
+            const res = await axios.post('/api/weights', record, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setWeightRecords([...weightRecords, { id: res.data._id, ...record, weight: `${record.value} KG` }]);
+        }
+
+        setShowModal(false);
+        setNewRecord({ date: new Date(), value: '', notes: '' });
+    };
+
+
+    const handleDelete = async (type, id) => {
+        const endpoint = type === 'height' ? `/api/heights/${id}` : `/api/weights/${id}`;
+        await axios.delete(endpoint, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (type === 'height') {
+            setHeightRecords(heightRecords.filter(record => record.id !== id));
+        } else {
+            setWeightRecords(weightRecords.filter(record => record.id !== id));
+        }
+    };
+
 
     return (
         <div className="growthpage" style={{ '--bg-image': `url(${bgimage})` }} >
@@ -106,17 +185,16 @@ const Growthpage = () => {
                     </div>
 
                 </div>
+
                 <div className="height">
                     <div className="record-section">
                         <h3 style={{ marginLeft: '20px', fontFamily: 'Poppins' }}>Height Records</h3>
-                        <button onClick={() => {
-                            setHeightRecords([...heightRecords, {
-                                id: Date.now(),
-                                date: '',
-                                height: '',
-                                notes: ''
-                            }]);
-                        }} className='addrecordbtn'>➕</button>
+                        <button
+                            onClick={() => openModal('height')}
+                            className='addrecordbtn'
+                        >
+                            ➕
+                        </button>
                         <table className="record-table">
                             <thead>
                                 <tr>
@@ -144,31 +222,25 @@ const Growthpage = () => {
                                             updated[index].notes = e.target.value;
                                             setHeightRecords(updated);
                                         }} /></td>
-                                        <td><button onClick={() => {
-                                            const updated = heightRecords.filter((_, i) => i !== index);
-                                            setHeightRecords(updated);
-                                        }}>Delete</button></td>
+                                        <td><button onClick={() => handleDelete('height', record._id)}>Delete</button></td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-
                     </div>
-
                 </div>
+
 
 
                 <div className="weight">
                     <div className="record-section">
                         <h3 style={{ marginLeft: '20px', fontFamily: 'Poppins' }}>Weight Records</h3>
-                        <button onClick={() => {
-                            setWeightRecords([...weightRecords, {
-                                id: Date.now(),
-                                date: '',
-                                weight: '',
-                                notes: ''
-                            }]);
-                        }} className='addrecordbtn'>➕</button>
+                        <button
+                            onClick={() => openModal('weight')}
+                            className='addrecordbtn'
+                        >
+                            ➕
+                        </button>
                         <table className="record-table">
                             <thead>
                                 <tr>
@@ -196,10 +268,7 @@ const Growthpage = () => {
                                             updated[index].notes = e.target.value;
                                             setWeightRecords(updated);
                                         }} /></td>
-                                        <td><button onClick={() => {
-                                            const updated = weightRecords.filter((_, i) => i !== index);
-                                            setWeightRecords(updated);
-                                        }}>Delete</button></td>
+                                        <td><button onClick={() => handleDelete('height', record._id)}>Delete</button></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -314,8 +383,40 @@ const Growthpage = () => {
                     </div>
                 </div>
 
+
+
             </div>
-        </div>
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h3>Add {recordType.charAt(0).toUpperCase() + recordType.slice(1)} Record</h3>
+                        <label>Date:</label>
+                        <DatePicker
+                            selected={newRecord.date}
+                            onChange={(date) => setNewRecord({ ...newRecord, date })}
+                            dateFormat="MM/dd/yyyy"
+                            className="date-picker-input"
+                            placeholderText="Select date"
+                        />
+                        <label>{recordType === 'height' ? 'Height (cm)' : 'Weight (kg)'}:</label>
+                        <input type="text" value={newRecord.value} onChange={(e) => setNewRecord({ ...newRecord, value: e.target.value })} />
+                        <label>Notes:</label>
+                        <input type="text" value={newRecord.notes} onChange={(e) => setNewRecord({ ...newRecord, notes: e.target.value })} />
+
+                        {/* Doctor's Notes Section */}
+                        <div className="doctor-notes">
+                            <label>Doctor's Notes:</label>
+                            <div>"Monitor growth pattern for next checkup"</div>
+                        </div>
+
+                        <div className="modal-buttons">
+                            <button onClick={handleAddRecord}>Submit</button>
+                            <button onClick={() => setShowModal(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div >
     );
 }
 export default Growthpage;

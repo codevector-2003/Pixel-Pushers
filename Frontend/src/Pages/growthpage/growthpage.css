@@ -143,3 +143,190 @@
     color: blacky;
     font-weight: bold;
 }
+
+/* Modal styles */
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Box */
+.modal {
+    position: absolute;
+    top: 15%;
+    left: 35%;
+    background-color: white;
+    z-index: 999;
+    border-radius: 12px;
+    width: 450px;
+    max-width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Modal Content */
+.modal-content {
+    z-index: 1000;
+    padding: 25px;
+}
+
+/* Header */
+.modal-content h3 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Date Input */
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Textarea */
+.modal-content textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Doctor's Notes Section */
+.modal-content .doctor-notes {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.modal-content .doctor-notes label {
+    font-weight: 500;
+    color: #444;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.modal-content .doctor-notes div {
+    color: #666;
+    font-size: 14px;
+    font-style: italic;
+    padding-left: 10px;
+    border-left: 3px solid #457eff;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+/* Cancel Button */
+.modal-buttons button:last-child {
+    background-color: white;
+    color: #457eff;
+    border: 1px solid #457eff;
+}
+
+.modal-buttons button:last-child:hover {
+    background-color: #f5f9ff;
+}
+
+/* Submit Button */
+.modal-buttons button:first-child {
+    background-color: #457eff;
+    color: white;
+    border: none;
+}
+
+.modal-buttons button:first-child:hover {
+    background-color: #3a6bd9;
+}
+
+/* Add Record Button */
+
+
+.addrecordbtn:hover {
+    background-color: #3a6bd9;
+}
+
+.date-picker-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
+}
+
+.react-datepicker {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.react-datepicker__header {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+}
+
+.react-datepicker__day--selected {
+    background-color: #457eff;
+}
+
+.react-datepicker__day--selected:hover {
+    background-color: #3a6bd9;
+}
