@@ -54,8 +54,10 @@ Smart Baby LK aims to revolutionize infant healthcare in Sri Lanka by digitizing
 
 With **Smart Baby LK**, we're not just digitizing records - we're creating an **intelligent healthcare companion** that grows with your child, combining **medical expertise with cutting-edge AI** for proactive pediatric care. �💡
 
-Would you like me to elaborate on any specific aspect of the AI integration? I can provide more details about:
-1. The chatbot's technical architecture
-2. Safety protocols for medical AI
-3. Planned integration with healthcare providers
-4. Multilingual support considerations for Sri Lanka
+
+Team Members
+1.Himath Nimpura
+2.Haren Daishika
+3.Nivin Sithija
+4.Himandhi Kuruppu
+5.Pankaja 
