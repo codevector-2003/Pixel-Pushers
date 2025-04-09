@@ -23,19 +23,15 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 |------------|-----------------|-----------------|
 | ![Signin](https://github.com/user-attachments/assets/6b1d23ff-a2e7-4cea-8c74-c1206d1af1d3) | ![Signup-1](https://github.com/user-attachments/assets/025405dd-0127-4974-9a68-bc7313ad137e) | ![Signup-2](https://github.com/user-attachments/assets/00419176-7399-4407-a16f-bcab0f25d7f0) |
 
-| Dashboard | Diet Page | Vaccine Tracker |
-|-----------|-----------|----------------|
-| ![Dashbaord](https://github.com/user-attachments/assets/56f864f0-d5ca-4a16-a8fd-cd571de8e496) | ![Diet](https://github.com/user-attachments/assets/c1c37969-0eb4-45da-a7bc-e3d19fabb688) | ![Vaccine Tracker](https://github.com/user-attachments/assets/dcde6ef8-77f7-4bb9-9123-eec245e5b122) |
+| Dashboard | Milestones Page | Vaccine Tracker |
+|-----------|-----------------|-----------------|
+| ![Dashbaord](https://github.com/user-attachments/assets/56f864f0-d5ca-4a16-a8fd-cd571de8e496) | ![Milestone](https://github.com/user-attachments/assets/1fb7d598-d16c-4401-b0cd-d53ae3d43167) | ![Vaccine Tracker](https://github.com/user-attachments/assets/dcde6ef8-77f7-4bb9-9123-eec245e5b122) |
 
 
 
-| Dashboard | AI Doctor Chat | Health Records |
-|-----------|----------------|----------------|
-| ![Dashboard](https://via.placeholder.com/300x200?text=Dashboard) | ![AI Chat](https://via.placeholder.com/300x200?text=AI+Doctor) | ![Records](https://via.placeholder.com/300x200?text=Health+Data) |
-
-| Dashboard | AI Doctor Chat | Health Records |
-|-----------|----------------|----------------|
-| ![Dashboard](https://via.placeholder.com/300x200?text=Dashboard) | ![AI Chat](https://via.placeholder.com/300x200?text=AI+Doctor) | ![Records](https://via.placeholder.com/300x200?text=Health+Data) |
+| ChatBot Page | Diet Page | 
+|--------------|-----------|
+| ![ChatBot Page](https://github.com/user-attachments/assets/5edba9d1-bc99-40c0-89a5-59a233245b78) | ![Diet](https://github.com/user-attachments/assets/c1c37969-0eb4-45da-a7bc-e3d19fabb688) |  
 
 ---
 
