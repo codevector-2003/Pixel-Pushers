@@ -45,16 +45,10 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 - **Parent-managed digital health profiles**
 - **AI-powered growth monitoring** 📈
 - **Vaccination tracker with reminders** 💉
-
-### 🤖 AI Pediatric Assistant
-- 24/7 symptom checker & triage 🔍
-- Personalized medication guidance 💊
-
-### 📚 Education & Community
-- AI-curated care guidelines 📝
-- Parent discussion forum 🗨️
-
-*(List all features in bullet points for readability)*
+- **AI-powered chatbot customized for questions related to parents' problems** 🤖
+- **Parents can assign allergies and available foods, and AI will generate a customized diet plan for the child** 🍽️
+- **Parents can track height and growth, with charts automatically generated based on the data** 📊
+- **Parents can track illnesses and receive relevant health updates** 💡
 
 ---
 
