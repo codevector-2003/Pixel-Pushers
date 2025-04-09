@@ -1,63 +1,50 @@
 # 📌 Smart Baby LK
 
+![Project Banner](https://via.placeholder.com/1200x400?text=Smart+Baby+LK+Banner) *(Upload a banner image by replacing this URL)*
+
 ## 🏥 Project Overview
-Smart Baby LK aims to revolutionize infant healthcare in Sri Lanka by digitizing health records. Our **web-based platform** ensures **accurate, accessible, and secure** medical data management, empowering **parents, healthcare providers, and policymakers** with actionable insights. By integrating cutting-edge technologies like **AI, IoT, and cloud computing**, we provide a **scalable and user-friendly** solution to enhance infant health monitoring and decision-making.
+Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health records. Our **web-based platform** ensures **accurate, accessible, and secure** medical data management, empowering **parents, healthcare providers, and policymakers** with actionable insights. 
+
+🔗 **Live Demo**: [Watch Video Demo](https://youtube.com/your-demo-link) | [Visit Website](https://your-website-link.com)  
 
 ---
 
-## 🚀 Enhanced Key Features (with AI Doctor Integration)
-### 🩺 Infant Health Records & Tracking
-✔️ **Parent-managed digital health profiles**  
-✔️ **Automated growth monitoring charts with AI analysis** 📈  
-✔️ **Vaccination tracking with smart reminders** 💉  
+## 🖼️ Project Screenshots
+| Dashboard | AI Doctor Chat | Health Records |
+|-----------|----------------|----------------|
+| ![Dashboard](https://via.placeholder.com/300x200?text=Dashboard) | ![AI Chat](https://via.placeholder.com/300x200?text=AI+Doctor) | ![Records](https://via.placeholder.com/300x200?text=Health+Data) |
 
-### 🤖 AI Pediatric Assistant 
-✔️ **24/7 AI doctor chatbot for instant health queries** 🩺  
-✔️ **Symptom checker with triage recommendations** 🔍  
-✔️ **Personalized medical advice based on child's health history** 💡  
-✔️ **Medication guidance and dosage calculator** 💊  
-
-### 📚 Guidance & Educational Content
-✔️ **AI-curated, evidence-based infant care guidelines** 📝  
-✔️ **Smart health alerts & predictive recommendations** ⚠️  
-
-### 👨‍👩‍👧‍👦 Parental Support & Community Features
-✔️ **AI-moderated discussion forum for healthcare advice** 🗨️  
-✔️ **Emergency call routing with AI-powered pre-assessment** 📞  
-
-### 🔔 Smart Reminders System
-✔️ **Context-aware vaccination/checkup alerts** 🔄  
-✔️ **AI-driven health milestone notifications** ⏰  
-
-### 🥗 Nutrition & Food Plans
-✔️ **AI-generated dietary recommendations** 🍎  
-✔️ **Smart allergy detection from symptom patterns** ⚕️  
-
-### 🎯 Development Tracker
-✔️ **AI-powered milestone assessment** 📊  
-✔️ **Personalized activity suggestions using developmental data** 🧩  
+*(Replace placeholder URLs with actual screenshots)*
 
 ---
 
-## 🛠️ Enhanced Technology Stack
-| **Technology** | **Usage** |
-|--------------|------------|
-| 🖥 **Frontend** | React.js + Conversational UI for chatbot integration |
-| 🧠 **AI Engine** | NLP models (GPT/MedPaLM) + Custom pediatric knowledge graph |
-| 🌍 **Backend** | FastAPI with AI service integration |
-| 🗄 **Database** | MongoDB + Vector DB for AI knowledge retrieval |
+## 🗃️ Database Schema
+![Database Diagram](https://via.placeholder.com/600x400?text=Database+Schema+Image) *(Upload your ER diagram here)*
 
-## 🔐 AI Safety Features
-• **Medical disclaimer system** ⚠️  
-• **Escalation protocol to human doctors** 👩‍⚕️  
-• **Continuous learning from pediatric experts** 📚  
+---
 
-With **Smart Baby LK**, we're not just digitizing records - we're creating an **intelligent healthcare companion** that grows with your child, combining **medical expertise with cutting-edge AI** for proactive pediatric care. �💡
+## 🚀 Key Features
+### 🩺 Core Features
+- **Parent-managed digital health profiles**
+- **AI-powered growth monitoring** 📈
+- **Vaccination tracker with reminders** 💉
 
+### 🤖 AI Pediatric Assistant
+- 24/7 symptom checker & triage 🔍
+- Personalized medication guidance 💊
 
-Team Members
-1.Himath Nimpura
-2.Haren Daishika
-3.Nivin Sithija
-4.Himandhi Kuruppu
-5.Pankaja 
+### 📚 Education & Community
+- AI-curated care guidelines 📝
+- Parent discussion forum 🗨️
+
+*(List all features in bullet points for readability)*
+
+---
+
+## 🔨 Installation Guide
+### Frontend Setup
+```bash
+git clone https://github.com/your-repo.git
+cd frontend
+npm install
+npm start
