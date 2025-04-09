@@ -35,11 +35,6 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 
 ---
 
-## 🗃️ Database Schema
-![Database Diagram](https://via.placeholder.com/600x400?text=Database+Schema+Image) *(Upload your ER diagram here)*
-
----
-
 ## 🚀 Key Features
 ### 🩺 Core Features
 - **Parent-managed digital health profiles**
@@ -60,8 +55,8 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
    npm install
    npm start
    ```
----
 
+---
 
 ### Backend Setup
 ### Creating and Activating Virtual Environment
@@ -99,4 +94,16 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
    ```
    pythin main.py
    ```
-   
+
+---
+## 🤝 Contributors
+
+- [Himath Nimpura](https://github.com/HimathX)
+- [Haren Deishika](https://github.com/codevector-2003)
+- [Nivin Sithija](https://github.com/Coder-pro1)
+- [Himandhi Kuruppu](https://github.com/himandhik)
+- [Raj Pankaja](https://github.com/LazySeaHorse)
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
