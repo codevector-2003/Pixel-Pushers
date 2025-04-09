@@ -6,8 +6,8 @@
 ## 🏥 Project Overview
 Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health records. Our **web-based platform** ensures **accurate, accessible, and secure** medical data management, empowering **parents, healthcare providers, and policymakers** with actionable insights. 
 
-🔗 **Video Demo**: [Watch Video Demo](https://drive.google.com/file/d/1HF6YnXnPwD6rbRoZwCZI1V4LputIrp2B/view?usp=drive_link)
-🔗 **Live Demo** : [Watch Video Demo]([https://youtube.com/your-demo-link](https://smartbabylk.vercel.app/)) 
+🔗 **Video Demo**: [Watch the Video Demonstraction](https://drive.google.com/file/d/1HF6YnXnPwD6rbRoZwCZI1V4LputIrp2B/view?usp=drive_link)
+🔗 **Live Demo** : [Watch the Live Demonstration](https://smartbabylk.vercel.app/)
 
 ---
 
