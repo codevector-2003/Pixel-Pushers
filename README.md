@@ -1,8 +1,9 @@
 # 📌 Smart Baby LK
 
-![Project Banner](https://via.placeholder.com/1200x400?text=Smart+Baby+LK+Banner) *(Upload a banner image by replacing this URL)*
+![Banner](https://github.com/user-attachments/assets/bad9f4c4-7c1e-4534-a2cc-55cb04e98afa)
 
-## 🏥 Project Overview
+## 🏥 Project Overview![Banner](https://github.com/user-attachments/assets/fad65dc0-a338-4877-9cba-ed194c0e5f0a)
+
 Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health records. Our **web-based platform** ensures **accurate, accessible, and secure** medical data management, empowering **parents, healthcare providers, and policymakers** with actionable insights. 
 
 🔗 **Live Demo**: [Watch Video Demo](https://youtube.com/your-demo-link) | [Visit Website](https://your-website-link.com)  
