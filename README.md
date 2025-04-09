@@ -19,11 +19,22 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 ---
 
 ## 🖼️ Project Screenshots
+| Login Page | Signup Page - 1 | Signup Page - 2 |
+|------------|-----------------|-----------------|
+| ![Signin](https://github.com/user-attachments/assets/6b1d23ff-a2e7-4cea-8c74-c1206d1af1d3) | ![Signup-1](https://github.com/user-attachments/assets/025405dd-0127-4974-9a68-bc7313ad137e) | ![Signup-2](https://github.com/user-attachments/assets/00419176-7399-4407-a16f-bcab0f25d7f0) |
+
+| Dashboard | AI Doctor Chat | Health Records |
+|-----------|---------
+-------|----------------|
+| ![Dashboard](https://via.placeholder.com/300x200?text=Dashboard) | ![AI Chat](https://via.placeholder.com/300x200?text=AI+Doctor) | ![Records](https://via.placeholder.com/300x200?text=Health+Data) |
+
 | Dashboard | AI Doctor Chat | Health Records |
 |-----------|----------------|----------------|
 | ![Dashboard](https://via.placeholder.com/300x200?text=Dashboard) | ![AI Chat](https://via.placeholder.com/300x200?text=AI+Doctor) | ![Records](https://via.placeholder.com/300x200?text=Health+Data) |
 
-*(Replace placeholder URLs with actual screenshots)*
+| Dashboard | AI Doctor Chat | Health Records |
+|-----------|----------------|----------------|
+| ![Dashboard](https://via.placeholder.com/300x200?text=Dashboard) | ![AI Chat](https://via.placeholder.com/300x200?text=AI+Doctor) | ![Records](https://via.placeholder.com/300x200?text=Health+Data) |
 
 ---
 
@@ -52,8 +63,49 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 
 ## 🔨 Installation Guide
 ### Frontend Setup
-```bash
-git clone https://github.com/your-repo.git
-cd frontend
-npm install
-npm start
+   ```bash
+   git clone https://github.com/your-repo.git
+   cd frontend
+   npm install
+   npm start
+   ```
+---
+
+
+### Backend Setup
+### Creating and Activating Virtual Environment
+
+1. **Create a virtual environment:**
+
+   - On macOS/Linux:
+     ```bash
+     python3 -m venv venv
+     ```
+
+   - On Windows:
+     ```bash
+     python -m venv venv
+     ```
+
+2. **Activate the virtual environment:**
+
+   - On macOS/Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+
+   - On Windows:
+     ```bash
+     .\venv\Scripts\activate
+     ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the backend server:**
+   ```
+   pythin main.py
+   ```
+   
