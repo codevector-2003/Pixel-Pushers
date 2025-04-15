@@ -75,7 +75,7 @@ const Growthpage = () => {
 
     const fetchWeightRecords = async () => {
         try {
-            const res1 = await axios.get(`http://52.140.41.112:80/babies/${baby_id}/weight/`, {
+            const res1 = await axios.get(`http://52.140.41.112:8080/babies/${baby_id}/weight/`, {
 
                 headers: {
                     "Content-Type": "application/json",
@@ -98,7 +98,7 @@ const Growthpage = () => {
 
     const fetchHeightRecords = async () => {
         try {
-            const res2 = await axios.get(`http://52.140.41.112:80/babies/${baby_id}/height/`, {
+            const res2 = await axios.get(`http://52.140.41.112:8080/babies/${baby_id}/height/`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
