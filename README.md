@@ -66,7 +66,7 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 - **PyMongo** - Official MongoDB driver for Python
 
 ### 🤖 AI/ML Components
-- **OpenAI API** (optional) - Enhanced chatbot capabilities
+- **OpenAI API**  - Enhanced chatbot capabilities
 
 ### 🚀 DevOps & Deployment
 - **Vercel** - Frontend hosting platform
