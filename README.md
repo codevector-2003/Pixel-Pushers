@@ -71,6 +71,7 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 ### 🚀 DevOps & Deployment
 - **Vercel** - Frontend hosting platform
 - **Azure** - Backend cloud infrastructure
+- **Xshell** - Secure remote access
 
 ---
 
