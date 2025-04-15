@@ -47,6 +47,33 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 
 ---
 
+## 🛠️ Tech Stack
+### 🖥️ Frontend
+- **React.js** - Core framework for building responsive user interfaces
+- **Tailwind CSS** - Utility-first CSS framework for modern designs
+- **Chart.js** - Interactive data visualization components
+- **React Router** - Seamless client-side navigation
+- **Axios** - Promise-based HTTP client for API calls
+
+### ⚙️ Backend
+- **FastAPI** - High-performance Python backend framework
+- **Azure App Services** - Cloud hosting for backend API
+- **Uvicorn** - ASGI server implementation
+- **JWT** - Secure authentication token handling
+
+### 🗄️ Database
+- **MongoDB** - Flexible NoSQL database for health records
+- **PyMongo** - Official MongoDB driver for Python
+
+### 🤖 AI/ML Components
+- **OpenAI API** (optional) - Enhanced chatbot capabilities
+
+### 🚀 DevOps & Deployment
+- **Vercel** - Frontend hosting platform
+- **Azure** - Backend cloud infrastructure
+
+---
+
 ## 🔨 Installation Guide
 ### Frontend Setup
    ```bash
