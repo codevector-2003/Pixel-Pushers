@@ -50,7 +50,6 @@ Smart Baby LK revolutionizes infant healthcare in Sri Lanka by digitizing health
 ## 🛠️ Tech Stack
 ### 🖥️ Frontend
 - **React.js** - Core framework for building responsive user interfaces
-- **Tailwind CSS** - Utility-first CSS framework for modern designs
 - **Chart.js** - Interactive data visualization components
 - **React Router** - Seamless client-side navigation
 - **Axios** - Promise-based HTTP client for API calls
