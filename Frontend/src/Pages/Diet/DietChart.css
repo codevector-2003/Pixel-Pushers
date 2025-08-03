@@ -1,0 +1,294 @@
+:root {
+  --sidebar-width: 60px;
+  --header-height: 60px;
+}
+
+body, html, #root {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: #d9fce5;
+  z-index: 20;
+}
+
+.growthpage__header {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: var(--header-height);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  z-index: 15;
+  gap: 1rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 9999px;
+  padding: 0.3rem 0.8rem;
+  flex: 1;
+  max-width: 300px;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  padding: 0.4rem 0.6rem;
+  outline: none;
+  font-size: 1rem;
+  flex-grow: 1;
+}
+
+.search-icon {
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-icon {
+  display: flex;
+  align-items: center;
+}
+
+.notification-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.diet-chart-container {
+  margin-left: var(--sidebar-width);
+  margin-top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(to right, #e6fff5, #ffe6f0);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.left-panel {
+  position: relative;
+  flex: 1.2;
+  background: #ffffffcc;
+  padding: 1.5rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.calorie-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.dietchart-header-icons {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.icon-button {
+  background: #ddd;
+  border: none;
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.icon-button:hover {
+  background: #ccc;
+}
+
+.kcal-title-left {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
+}
+
+.kcal-note {
+  margin-top: 0;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+.paragraph-chart-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.paragraph-chart-row .kcal-note {
+  flex: 0 0 60%;
+  font-size: 0.9rem;
+  color: #444;
+  margin: 0;
+}
+
+.pie-chart-wrapper {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.diet-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+}
+
+.diet-table th,
+.diet-table td {
+  padding: 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.new-diet-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  flex-shrink: 0;
+}
+
+.tags-section {
+  margin-top: 1rem;
+}
+
+.tags-section label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tags-row span {
+  background: #f0f0f0;
+  padding: 0.4rem 0.7rem;
+  border-radius: 20px;
+  user-select: none;
+}
+
+.add-button {
+  margin-top: 0.5rem;
+  background: #ddd;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.add-button:hover {
+  background: #ccc;
+}
+
+.doctors-note-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.doctors-note-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.doctors-note-section blockquote {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.doctors-note-section p {
+  margin: 0;
+  color: #555;
+}
+
+@media (max-width: 900px) {
+  .diet-chart-container {
+    flex-direction: column;
+    height: auto;
+    margin-top: var(--header-height);
+  }
+
+  .left-panel,
+  .right-panel {
+    flex: none;
+    width: 100%;
+  }
+
+  .paragraph-chart-row {
+    flex-direction: column;
+  }
+
+  .paragraph-chart-row .kcal-note,
+  .pie-chart-wrapper {
+    flex: none;
+    width: 100%;
+  }
+
+  .dietchart-header-icons {
+    position: static;
+    margin-bottom: 1rem;
+    justify-content: flex-end;
+  }
+}

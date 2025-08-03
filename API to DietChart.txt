@@ -1,0 +1,15 @@
+{
+  "kcal": 1800,
+  "note": "A recently diet of creamy milk, oats, guava and egg...",
+  "macros": [
+    { "name": "Carbs", "value": 400 },
+    { "name": "Protein", "value": 300 },
+    { "name": "Fats", "value": 300 }
+  ],
+  "foods": ["Milk", "Oats", "Quail eggs", "Goat milk", "Carrots"],
+  "allergies": ["Peanuts", "Tomatoes"],
+  "table": [
+    { "food": "Milk", "amount": "123g", "nutrient": "Protein", "calories": 888 },
+    { "food": "Oats", "amount": "100g", "nutrient": "Carbs", "calories": 700 }
+  ]
+}
